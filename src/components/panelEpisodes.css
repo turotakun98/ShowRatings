@@ -1,0 +1,28 @@
+.cellRotated {
+  color: white;
+  background-color: black;
+  transform: rotate(270deg) scale(-1, 1);
+  width: 40px;
+  height: 40px;
+  padding: 0px;
+  border: 2px solid white;
+}
+
+.tableRotated {
+  transform: rotate(90deg) scale(1, -1);
+  margin: 0 auto;
+}
+
+th,
+td {
+  color: white;
+  background-color: black;
+  width: 40px;
+  height: 40px;
+  padding: 0px;
+  border: 2px solid white;
+}
+
+table {
+  margin: 0 auto;
+}

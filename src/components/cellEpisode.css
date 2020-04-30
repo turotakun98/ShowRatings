@@ -1,0 +1,38 @@
+h4 {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rateGreat {
+  color: black;
+  background-color: #7ecf4c;
+}
+
+.rateGood {
+  color: black;
+  background-color: #f5e033;
+}
+
+.rateRegular {
+  color: black;
+  background-color: #ffaa00;
+}
+
+.rateBad {
+  background-color: #c92913;
+  color: white;
+}
+
+.rateGarbage {
+  background-color: #49525e;
+  color: white;
+}
+
+.rateUndefined {
+  background-color: grey;
+  color: white;
+}

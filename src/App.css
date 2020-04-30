@@ -1,0 +1,121 @@
+.App {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  /*
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  margin-left: 20px;
+  margin-right: 20px;*/
+}
+/*
+.bckImage {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: block;
+  background-image: url("https://m.media-amazon.com/images/M/MV5BMzgxMmQxZjQtNDdmMC00MjRlLTk1MDEtZDcwNTdmOTg0YzA2XkEyXkFqcGdeQXVyMzQ2MDI5NjU@._V1_.jpg");
+  width: 100%;
+  height: 100%;
+  -webkit-filter: blur(10px);
+  -moz-filter: blur(10px);
+  -o-filter: blur(10px);
+  -ms-filter: blur(10px);
+  filter: blur(10px);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+*/
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 320px) {
+  .App-component {
+    margin: 20px auto 0 auto;
+    width: 100%;
+  }
+  .pnlEpisode {
+    width: 100%;
+  }
+}
+
+@media (min-width: 321px) {
+  .App-component {
+    margin: 150px auto 0 auto;
+    width: 600px;
+  }
+  .pnlEpisode {
+    width: 70%;
+  }
+}
+
+.seriesCover {
+  max-width: 278px;
+}
+
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left,
+.right {
+  width: 25%;
+}
+
+.middle {
+  width: 50%;
+}
+
+.row {
+  content: "";
+  display: table;
+  clear: both;
+  filter: none;
+  -webkit-filter: none;
+}
+
+.head {
+  padding-top: 100px;
+  height: 50px;
+}
+
+.body {
+  margin-top: 50px;
+}
