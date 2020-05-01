@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SeriesInfo from "../classes/seriesInfo";
 import "./searchBar.css";
+import axios from "axios";
 
 class SearchBar extends Component {
   state = {
@@ -46,7 +47,7 @@ class SearchBar extends Component {
     });
   };
 
-  async getSeriesListByTitle(title) {
+  /*async getSeriesListByTitle(title) {
     var titleWithoutSpaces = title.replace(/\s/g, "_");
     const url = "http://localhost:9000/titleList/" + titleWithoutSpaces;
     const response = await fetch(url);
@@ -67,6 +68,38 @@ class SearchBar extends Component {
 
     this.setState({ suggestions: listSeries });
     return data;
+  }*/
+
+  async getSeriesListByTitle(title) {
+    var listSeries = [];
+
+    var url = `/suggests/${title[0]}/${title}.json`;
+    var callResp = await this.callHttpMethod(url);
+    console.log("callResp", callResp.data);
+    var respBody = callResp.data;
+    var replHead = "imdb$" + title + "(";
+    respBody = respBody.replace(replHead, "");
+    respBody = respBody.substring(0, respBody.length - 1);
+    var respJson = JSON.parse(respBody).d;
+    respJson.forEach((el) => {
+      if (el["q"] == "TV series") {
+        var image = null;
+        if (el["i"]) image = el["i"][0];
+
+        var series = new SeriesInfo(el["id"], el["l"], el["yr"], image);
+        listSeries.push(series);
+      }
+    });
+
+    this.setState({ suggestions: listSeries });
+  }
+
+  async callHttpMethod(url) {
+    return new Promise((result) => {
+      console.log("Requesting api");
+      const response = axios.get(url);
+      result(response);
+    });
   }
 
   handleClick(index) {
