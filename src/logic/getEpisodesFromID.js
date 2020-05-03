@@ -21,7 +21,6 @@ export default async function getEpisodesFromID(idSeries) {
     if (!listEpisodes[episode.season]) listEpisodes[episode.season] = [episode];
     else listEpisodes[episode.season].push(episode);
   }
-  console.log("matrix", listEpisodes);
 
   return listEpisodes;
 }
