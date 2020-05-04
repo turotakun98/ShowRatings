@@ -7,6 +7,15 @@ h4 {
   align-items: center;
 }
 
+.noUnderline {
+  text-decoration: none;
+  color: inherit !important;
+}
+.noUnderline:hover {
+  text-decoration: underline;
+  color: inherit !important;
+}
+
 .rateGreat {
   color: black;
   background-color: #7ecf4c;

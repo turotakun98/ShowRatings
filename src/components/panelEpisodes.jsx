@@ -124,29 +124,4 @@ class PanelEpisodes extends Component {
   }
 }
 
-// renderEpisodes() {
-//   // var distEpisodes = new Set(
-//   //   this.state.episodesList.map((ep) => ep.number).sort((a, b) => a - b)
-//   // );
-//   // var distSeasons = new Set(
-//   //   this.state.episodesList.map((ep) => ep.season).sort((a, b) => a - b)
-//   // );
-//   // console.log("eps", distEpisodes);
-//   // console.log("seas", distSeasons);
-//   /*
-//   var res = "";
-//   console.log("ok", this.state.episodesList.length);
-
-//   for (var season in this.state.episodesList) {
-//     res += `<tr key="S_${season}">`;
-//     var episodes = this.state.episodesList[season];
-//     for (var ep = 0; ep < episodes.length; ep++) {
-//       res += `<td>${season},${episodes[ep].number}, ${episodes[ep].rating} </td>`;
-//     }
-//   }
-//   console.log(res);
-//   return res;
-//   */
-// }
-
 export default PanelEpisodes;

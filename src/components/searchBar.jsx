@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import SeriesInfo from "../classes/seriesInfo";
 import "./searchBar.css";
+import getSeriesListByTitle from "../logic/getSeriesListByTitle";
 
 class SearchBar extends Component {
   state = {
@@ -8,6 +8,11 @@ class SearchBar extends Component {
     suggestions: [],
     showSuggestions: true,
   };
+
+  constructor(props) {
+    super(props);
+    this.handleTextChange = this.handleTextChange.bind(this);
+  }
 
   render() {
     return (
@@ -36,37 +41,18 @@ class SearchBar extends Component {
     this.setState({ showSuggestions: false });
   };
 
-  handleTextChange = (event) => {
-    this.setState({ text: event.target.value }, () => {
+  async handleTextChange(event) {
+    this.setState({ text: event.target.value }, async () => {
       if (this.state.text) {
-        this.getSeriesListByTitle(this.state.text.toLowerCase());
+        var listSeries = await getSeriesListByTitle(
+          this.state.text.toLowerCase()
+        );
+
+        this.setState({ suggestions: listSeries });
       } else {
         this.setState({ suggestions: [] });
       }
     });
-  };
-
-  async getSeriesListByTitle(title) {
-    var titleWithoutSpaces = title.replace(/\s/g, "_");
-    const url = "http://localhost:9000/titleList/" + titleWithoutSpaces;
-    const response = await fetch(url);
-    const data = await response.json();
-    var listSeries = [];
-
-    for (let i = 0; i < data.length; i++) {
-      var series = new SeriesInfo(
-        data[i].idImdb,
-        data[i].title,
-        data[i].years,
-        data[i].imageLink
-      );
-
-      listSeries.push(series);
-      //console.log(series);
-    }
-
-    this.setState({ suggestions: listSeries });
-    return data;
   }
 
   handleClick(index) {
@@ -87,7 +73,6 @@ class SearchBar extends Component {
     }
 
     return (
-      //this.loadSeriesInfo.bind(this, item)
       <ul>
         {this.state.suggestions.map((item, i) => (
           <li onMouseDown={() => this.handleClick(i)} key={"li" + item.idImdb}>

@@ -16,7 +16,14 @@ class CellEpisode extends Component {
         className={this.setBackgroundColorRating()}
         title={`S${this.props.episodeInfo.season}, E${this.props.episodeInfo.number}`}
       >
-        {this.props.episodeInfo.rating}
+        <a
+          href={this.props.episodeInfo.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="noUnderline"
+        >
+          {this.props.episodeInfo.rating}
+        </a>
       </h4>
     );
 
