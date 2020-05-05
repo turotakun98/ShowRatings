@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import SearchBar from "./components/searchBar";
 import PanelEpisodes from "./components/panelEpisodes";
+import LoadingSpinner from "./components/loadingSpinner";
 import getEpisodesFromID from "./logic/getEpisodesFromID";
 import getSeriesInfoFromID from "./logic/getSeriesInfoFromID";
 
@@ -15,10 +16,12 @@ class App extends React.Component {
     series: null,
     seriesInfo: null,
     episodesList: [],
+    loading: false,
   };
 
   async handleSearch(series) {
     console.log(series.idImdb);
+    this.setState({ loading: true });
     var eps = await getEpisodesFromID(series.idImdb);
     var seriesInfo = await getSeriesInfoFromID(series.idImdb);
     console.log("seriesInfo", seriesInfo);
@@ -26,6 +29,7 @@ class App extends React.Component {
       episodesList: eps,
       series: series,
       seriesInfo: seriesInfo,
+      loading: false,
     });
   }
 
@@ -48,7 +52,6 @@ class App extends React.Component {
           <div className="column middle">
             <SearchBar onSearch={this.handleSearch} />
           </div>
-          <div className="column right"></div>
         </div>
 
         <div className="row body">
@@ -68,12 +71,12 @@ class App extends React.Component {
             <p>{this.state.seriesInfo ? this.state.seriesInfo.plot : ""}</p>
             <br />
           </div>
-          <div className="column middle">
+          <div className="column middle panelContainer">
+            <LoadingSpinner loading={this.state.loading} />
             <PanelEpisodes
               episodesList={this.state.episodesList}
             ></PanelEpisodes>
           </div>
-          <div className="column right"></div>
         </div>
       </div>
     );

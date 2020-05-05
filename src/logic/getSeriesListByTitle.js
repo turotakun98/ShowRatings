@@ -16,7 +16,7 @@ export default async function getSeriesListByTitle(title) {
     );
 
     listSeries.push(series);
-    //console.log(series);
+    console.log(series);
   }
 
   return listSeries;

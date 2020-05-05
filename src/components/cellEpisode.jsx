@@ -22,7 +22,9 @@ class CellEpisode extends Component {
           rel="noopener noreferrer"
           className="noUnderline"
         >
-          {this.props.episodeInfo.rating}
+          {this.props.episodeInfo.rating
+            ? this.props.episodeInfo.rating
+            : "N.A"}
         </a>
       </h4>
     );
