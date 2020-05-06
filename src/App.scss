@@ -1,3 +1,5 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
 .App {
   text-align: center;
   width: 100%;
@@ -41,60 +43,29 @@
   }
 }
 
-@media (max-width: 320px) {
-  .App-component {
-    margin: 20px auto 0 auto;
-    width: 100%;
-  }
-  .pnlEpisode {
-    width: 100%;
-  }
-}
-
-@media (min-width: 321px) {
-  .App-component {
-    margin: 150px auto 0 auto;
-    width: 600px;
-  }
-  .pnlEpisode {
-    width: 70%;
-  }
-}
-
 .seriesCover {
   max-width: 278px;
+  width: 100%;
 }
 
-.column {
-  float: left;
-  padding: 10px;
+.hideBlock {
+  display: none;
 }
 
-.left {
-  width: 20%;
-}
-
-.middle {
-  width: 80%;
-}
-
-.row {
-  content: "";
-  display: table;
-  clear: both;
-  filter: none;
-  -webkit-filter: none;
-}
-
-.head {
-  margin-top: 30px;
-  height: 50px;
-}
-
-.body {
-  margin-top: 50px;
+.showBlock {
+  display: block;
 }
 
 .panelContainer {
+  //height: inherit;
   overflow: auto;
 }
+
+/*
+@include media-breakpoint-down(sm) {
+  .panelContainer {
+    transform: scale(0.5);
+    transform-origin: 50% 10%;
+  }
+}
+*/

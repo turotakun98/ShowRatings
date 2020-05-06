@@ -37,7 +37,6 @@ class SearchBar extends Component {
   };
 
   handleBlur = (event) => {
-    console.log("blur");
     this.setState({ showSuggestions: false });
   };
 
@@ -78,9 +77,9 @@ class SearchBar extends Component {
           <li onMouseDown={() => this.handleClick(i)} key={"li" + item.idImdb}>
             <div className="BasicContainer">
               <img
-                src={item.imageLink}
+                src={item.imageLink ? item.imageLink : "//:0"}
                 key={"img" + item.idImdb}
-                alt={item.title}
+                alt={item.imageLink ? item.title : ""}
               />
               <div className="TitleContainer">
                 <h4>{`${item.title}`}</h4>

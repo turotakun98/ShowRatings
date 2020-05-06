@@ -17,7 +17,14 @@ class PanelEpisodes extends Component {
       return <h1> </h1>;
     } else {
       var table = (
-        <table className={this.getClassName()}>
+        <table
+          style={{
+            transform:
+              `scale(${this.props.scaleFactor}) ` +
+              (this.state.tableRotated ? " scaleX(-1) rotate(90deg)" : ""),
+          }}
+          className={this.getClassName()}
+        >
           <thead>
             <tr>{this.renderHeader()}</tr>
           </thead>
@@ -29,11 +36,9 @@ class PanelEpisodes extends Component {
   }
 
   getClassName() {
-    return (
-      (this.props.className ? this.props.className : "") +
-      " " +
-      (this.state.tableRotated ? "tableRotated" : "")
-    );
+    return this.props.className ? this.props.className : ""; //+
+    //" " +
+    //(this.state.tableRotated ? "tableRotated" : "")
   }
 
   renderHeader() {

@@ -9,7 +9,8 @@
 }
 
 .tableRotated {
-  transform: rotate(90deg) scale(1, -1);
+  transform-origin: 0% 0%;
+  /* transform: rotate(90deg) scale(1, -1); */
   margin: 0 auto;
 }
 
@@ -25,4 +26,7 @@ td {
 
 table {
   margin: 0 auto;
+  transform-origin: 0% 0%;
+  margin-left: 10%;
+  display: table-row;
 }
