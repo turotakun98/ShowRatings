@@ -3,10 +3,6 @@ import "./panelEpisodes.css";
 import CellEpisode from "./cellEpisode";
 
 class PanelEpisodes extends Component {
-  state = {
-    tableRotated: false,
-  };
-
   render() {
     return this.renderEpisodesSeasons();
   }
@@ -18,10 +14,11 @@ class PanelEpisodes extends Component {
     } else {
       var table = (
         <table
+          id={this.props.id}
           style={{
             transform:
               `scale(${this.props.scaleFactor}) ` +
-              (this.state.tableRotated ? " scaleX(-1) rotate(90deg)" : ""),
+              (this.props.rotate ? " scaleX(-1) rotate(90deg)" : ""),
           }}
           className={this.getClassName()}
         >
@@ -38,7 +35,7 @@ class PanelEpisodes extends Component {
   getClassName() {
     return this.props.className ? this.props.className : ""; //+
     //" " +
-    //(this.state.tableRotated ? "tableRotated" : "")
+    //(this.props.rotate ? "tableRotated" : "")
   }
 
   renderHeader() {
@@ -50,18 +47,14 @@ class PanelEpisodes extends Component {
     rows.push(
       <th
         key="ESHseparator"
-        onClick={this.rotateTable}
-        className={this.state.tableRotated ? "cellRotated" : null}
+        className={this.props.rotate ? "cellRotated" : null}
       >
         +
       </th>
     );
     for (var i = min; i <= max; i++) {
       rows.push(
-        <th
-          key={"EH" + i}
-          className={this.state.tableRotated ? "cellRotated" : null}
-        >
+        <th key={"EH" + i} className={this.props.rotate ? "cellRotated" : null}>
           E{i}
         </th>
       );
@@ -70,12 +63,6 @@ class PanelEpisodes extends Component {
     //const retVal = distEpisodes.map((i) => <th>Ep{i}</th>);
     return rows;
   }
-
-  rotateTable = () => {
-    console.log("rotate");
-    const { tableRotated } = this.state;
-    this.setState({ tableRotated: !tableRotated });
-  };
 
   getMinMaxEpisodeNumber() {
     const { episodesList } = this.props;
@@ -102,7 +89,7 @@ class PanelEpisodes extends Component {
       <tr key={season}>
         <th
           key={"S" + season}
-          className={this.state.tableRotated ? "cellRotated" : null}
+          className={this.props.rotate ? "cellRotated" : null}
         >
           S{season}
         </th>
@@ -121,7 +108,7 @@ class PanelEpisodes extends Component {
       <CellEpisode
         key={/*item.title +*/ "S" + item.season + "E" + item.number}
         episodeInfo={item}
-        rotated={this.state.tableRotated}
+        rotated={this.props.rotate}
       />
     ));
 
