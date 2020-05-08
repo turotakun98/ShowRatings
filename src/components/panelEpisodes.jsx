@@ -7,6 +7,12 @@ class PanelEpisodes extends Component {
     return this.renderEpisodesSeasons();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.episodesList != nextProps.episodesList) {
+      this.props.onLoad();
+    }
+  }
+
   renderEpisodesSeasons() {
     const { episodesList } = this.props;
     if (!episodesList || episodesList.length === 0) {
@@ -31,7 +37,6 @@ class PanelEpisodes extends Component {
       return table;
     }
   }
-
   getClassName() {
     return this.props.className ? this.props.className : ""; //+
     //" " +
@@ -96,6 +101,7 @@ class PanelEpisodes extends Component {
         {this.renderEpisode(this.props.episodesList[season])}
       </tr>
     ));
+
     return retVal;
   }
 
