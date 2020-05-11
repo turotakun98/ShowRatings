@@ -8,8 +8,9 @@ class PanelEpisodes extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.episodesList != nextProps.episodesList) {
+    if (this.props.episodesList !== nextProps.episodesList) {
       this.props.onLoad();
+      console.log("load");
     }
   }
 

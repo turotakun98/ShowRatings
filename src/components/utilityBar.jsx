@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import "./utilityBar.css";
 
+const constants = {
+  maxZoom: 150,
+  minZoom: 50,
+  deltaHeight: 50,
+};
+
 class UtilityBar extends Component {
   constructor(props) {
     super(props);
@@ -10,20 +16,33 @@ class UtilityBar extends Component {
     this.rotateTable = this.rotateTable.bind(this);
     this.episodesLoaded = this.episodesLoaded.bind(this);
     this.resizePanel = this.resizePanel.bind(this);
+    this.handleZoom = this.handleZoom.bind(this);
   }
-
   state = {
     zoom: 100,
     rotate: false,
     pnlHeight: null,
+    visible: false,
   };
 
   render() {
     return (
-      <div className="col-md-10 panelContainer">
+      <div
+        className={
+          "col-md-10 panelContainer" + (this.state.visible ? "" : " d-none")
+        }
+      >
+        <button onClick={this.rotateTable}>r</button>
         <button onClick={this.zoomIn}>+</button>
         <button onClick={this.zoomOut}>-</button>
-        <button onClick={this.rotateTable}>r</button>
+        <input
+          type="range"
+          min={constants.minZoom}
+          max={constants.maxZoom}
+          value="100"
+          value={this.state.zoom}
+          onChange={this.handleZoom}
+        ></input>
         <div
           style={{
             height: this.state.pnlHeight ? this.state.pnlHeight : "",
@@ -44,19 +63,29 @@ class UtilityBar extends Component {
       zoom: 100,
       rotate: false,
       pnlHeight: null,
+      visible: true,
     });
+  }
+
+  handleZoom(event) {
+    console.log("zoom", event.target.value);
+    this.setState({ zoom: Math.floor(event.target.value) }, () =>
+      this.resizePanel()
+    );
   }
 
   zoomIn() {
     const { zoom } = this.state;
     console.log("zoom in");
-    this.setState({ zoom: zoom + 5 }, () => this.resizePanel());
+    if (zoom < constants.maxZoom)
+      this.setState({ zoom: zoom + 5 }, () => this.resizePanel());
   }
 
   zoomOut() {
     const { zoom } = this.state;
     console.log("zoom out");
-    this.setState({ zoom: zoom - 5 }, () => this.resizePanel());
+    if (zoom > constants.minZoom)
+      this.setState({ zoom: zoom - 5 }, () => this.resizePanel());
   }
 
   rotateTable() {
@@ -66,7 +95,7 @@ class UtilityBar extends Component {
   }
 
   resizePanel() {
-    console.log("resize!!");
+    console.log("resize!!", this.state.zoom);
     const { rotate } = this.state;
     var pnlH = null;
 
@@ -79,7 +108,7 @@ class UtilityBar extends Component {
     } else {
       var height = document.getElementById(this.props.children.props.id)
         .clientHeight;
-      pnlH = (height * this.state.zoom) / 100;
+      pnlH = (height * this.state.zoom) / 100 + constants.deltaHeight;
     }
 
     this.setState({ pnlHeight: pnlH });

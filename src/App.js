@@ -95,12 +95,7 @@ class App extends React.Component {
             </div>
           </div>
 
-          <UtilityBar
-            onZoom={this.handleZoom}
-            onRotate={this.handleRotate}
-            zoom={this.state.zoom}
-            rotate={this.state.rotate}
-          >
+          <UtilityBar>
             <PanelEpisodes
               id="pnlEpisodes"
               episodesList={this.state.episodesList}
