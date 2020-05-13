@@ -12,6 +12,7 @@ class App extends React.Component {
     super(props);
     this.handleSearch = this.handleSearch.bind(this);
     this.clickCollapse = this.clickCollapse.bind(this);
+    this.handleResize = this.handleResize.bind(this);
   }
 
   state = {
@@ -20,14 +21,13 @@ class App extends React.Component {
     episodesList: [],
     loading: false,
     collapse: false,
+    pnlH: null,
   };
 
   async handleSearch(series) {
-    console.log(series.idImdb);
     this.setState({ loading: true });
     var eps = await getEpisodesFromID(series.idImdb);
     var seriesInfo = await getSeriesInfoFromID(series.idImdb);
-    console.log("seriesInfo", seriesInfo);
     this.setState({
       episodesList: eps,
       series: series,
@@ -59,6 +59,10 @@ class App extends React.Component {
     this.setState({ collapse: !this.state.collapse });
   }
 
+  handleResize(height) {
+    this.setState({ pnlH: height });
+  }
+
   render() {
     return (
       <div className="App">
@@ -70,7 +74,12 @@ class App extends React.Component {
           </div>
         </div>
 
-        <div className="row">
+        <div
+          className="row"
+          style={{
+            height: this.state.pnlH ? this.state.pnlH : "",
+          }}
+        >
           <div className="col-md-2">
             <button
               className="btn btn-primary d-sm-none"
@@ -95,7 +104,7 @@ class App extends React.Component {
             </div>
           </div>
 
-          <UtilityBar>
+          <UtilityBar onResize={this.handleResize}>
             <PanelEpisodes
               id="pnlEpisodes"
               episodesList={this.state.episodesList}

@@ -10,7 +10,6 @@ class PanelEpisodes extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.episodesList !== nextProps.episodesList) {
       this.props.onLoad();
-      console.log("load");
     }
   }
 
@@ -39,9 +38,7 @@ class PanelEpisodes extends Component {
     }
   }
   getClassName() {
-    return this.props.className ? this.props.className : ""; //+
-    //" " +
-    //(this.props.rotate ? "tableRotated" : "")
+    return this.props.className ? this.props.className : "";
   }
 
   renderHeader() {
@@ -72,7 +69,6 @@ class PanelEpisodes extends Component {
 
   getMinMaxEpisodeNumber() {
     const { episodesList } = this.props;
-    console.log("getMinMaxEpisodeNumber", episodesList);
     let max = -Infinity;
     let min = Infinity;
 
@@ -83,13 +79,11 @@ class PanelEpisodes extends Component {
         if (episodeNr < min) min = episodeNr;
       }
     }
-    console.log("MM", max, min);
     return [min, max];
   }
 
   renderSeason() {
     const { episodesList } = this.props;
-    console.log("renderSeason", episodesList);
 
     const retVal = Object.keys(episodesList).map((season) => (
       <tr key={season}>
@@ -113,7 +107,7 @@ class PanelEpisodes extends Component {
 
     const retVal = episodesSorted.map((item) => (
       <CellEpisode
-        key={/*item.title +*/ "S" + item.season + "E" + item.number}
+        key={"S" + item.season + "E" + item.number}
         episodeInfo={item}
         rotated={this.props.rotate}
       />

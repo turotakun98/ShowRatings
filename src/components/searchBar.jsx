@@ -57,7 +57,6 @@ class SearchBar extends Component {
   handleClick(index) {
     const { suggestions } = this.state;
     var selectedSuggestion = suggestions[index];
-    //console.log("selectedSuggestion", selectedSuggestion);
     this.setState({
       text: selectedSuggestion.title,
     });
