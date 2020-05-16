@@ -1,3 +1,7 @@
 .panelContainer {
-  overflow-x: auto;
+  overflow: auto hidden;
+}
+
+.transformContainer {
+  transform-origin: top left;
 }

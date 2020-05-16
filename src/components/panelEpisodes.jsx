@@ -7,6 +7,18 @@ class PanelEpisodes extends Component {
     return this.renderEpisodesSeasons();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      this.props.rotate === nextProps.rotate &&
+      this.props.episodesList != null &&
+      this.props.episodesList === nextProps.episodesList
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.episodesList !== nextProps.episodesList) {
       this.props.onLoad();
@@ -19,15 +31,7 @@ class PanelEpisodes extends Component {
       return <h1> </h1>;
     } else {
       var table = (
-        <table
-          id={this.props.id}
-          style={{
-            transform:
-              `scale(${this.props.scaleFactor}) ` +
-              (this.props.rotate ? " scaleX(-1) rotate(90deg)" : ""),
-          }}
-          className={this.getClassName()}
-        >
+        <table id={this.props.id} className={this.getClassName()}>
           <thead>
             <tr>{this.renderHeader()}</tr>
           </thead>
@@ -37,6 +41,7 @@ class PanelEpisodes extends Component {
       return table;
     }
   }
+
   getClassName() {
     return this.props.className ? this.props.className : "";
   }
@@ -63,7 +68,6 @@ class PanelEpisodes extends Component {
       );
     }
 
-    //const retVal = distEpisodes.map((i) => <th>Ep{i}</th>);
     return rows;
   }
 

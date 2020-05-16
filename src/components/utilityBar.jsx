@@ -16,22 +16,26 @@ class UtilityBar extends Component {
     this.zoomOut = this.zoomOut.bind(this);
     this.rotateTable = this.rotateTable.bind(this);
     this.episodesLoaded = this.episodesLoaded.bind(this);
-    this.resizePanel = this.resizePanel.bind(this);
     this.handleZoom = this.handleZoom.bind(this);
   }
   state = {
     zoom: 100,
     rotate: false,
-    pnlHeight: null,
     visible: false,
-    heightGreaterWidth: false,
+    baseHeight: 0,
+    baseWidth: 0,
+    divWidth: 0,
   };
 
   render() {
     return (
       <div
+        id="divv"
         className={
-          "col-md-10 panelContainer" + (this.state.visible ? "" : " d-none")
+          //"col-md-10 panelContainer" + (this.state.visible ? "" : " d-none")
+          "col-md-10" +
+          (this.state.visible ? "" : " d-none") +
+          (this.state.baseWidth > this.state.divWidth ? " panelContainer" : "")
         }
       >
         <button onClick={this.rotateTable}>r</button>
@@ -41,28 +45,29 @@ class UtilityBar extends Component {
           type="range"
           min={constants.minZoom}
           max={constants.maxZoom}
-          value={constants.defZoom}
-          value={this.state.zoom}
+          value={this.state.zoom ? this.state.zoom : constants.defZoom}
           onChange={this.handleZoom}
         ></input>
         <div
           style={{
-            height:
-              this.state.pnlHeight &&
-              (this.state.rotate || this.state.zoom >= constants.defZoom)
-                ? this.state.heightGreaterWidth &&
-                  this.state.rotate &&
-                  this.state.zoom < constants.defZoom
-                  ? ""
-                  : this.state.pnlHeight
-                : "",
+            height: this.state.baseHeight,
+            width: this.state.baseWidth,
           }}
         >
-          {React.cloneElement(this.props.children, {
-            scaleFactor: this.state.zoom / 100,
-            rotate: this.state.rotate,
-            onLoad: this.episodesLoaded,
-          })}
+          <div
+            className="transformContainer"
+            style={{
+              transform:
+                `scale(${this.state.zoom / 100}) ` +
+                (this.state.rotate ? " scaleX(-1) rotate(90deg)" : ""),
+            }}
+          >
+            {React.cloneElement(this.props.children, {
+              scaleFactor: this.state.zoom / 100,
+              rotate: this.state.rotate,
+              onLoad: this.episodesLoaded,
+            })}
+          </div>
         </div>
       </div>
     );
@@ -78,59 +83,38 @@ class UtilityBar extends Component {
   }
 
   getHeightWidth() {
-    var height = document.getElementById(this.props.children.props.id)
-      .clientHeight;
-    var width = document.getElementById(this.props.children.props.id)
-      .clientWidth;
-    this.setState({ heightGreaterWidth: height > width }, () =>
-      this.resizePanel()
-    );
+    var heightL = document
+      .getElementById(this.props.children.props.id)
+      .getBoundingClientRect().height;
+    var widthL = document
+      .getElementById(this.props.children.props.id)
+      .getBoundingClientRect().width;
+
+    var widthD = document.getElementById("divv").offsetWidth;
+    this.setState({ baseWidth: widthL, baseHeight: heightL, divWidth: widthD });
   }
 
   handleZoom(event) {
     this.setState({ zoom: Math.floor(event.target.value) }, () =>
-      this.resizePanel()
+      this.getHeightWidth()
     );
   }
 
   zoomIn() {
     const { zoom } = this.state;
     if (zoom < constants.maxZoom)
-      this.setState({ zoom: zoom + 5 }, () => this.resizePanel());
+      this.setState({ zoom: zoom + 5 }, () => this.getHeightWidth());
   }
 
   zoomOut() {
     const { zoom } = this.state;
     if (zoom > constants.minZoom)
-      this.setState({ zoom: zoom - 5 }, () => this.resizePanel());
+      this.setState({ zoom: zoom - 5 }, () => this.getHeightWidth());
   }
 
   rotateTable() {
     const { rotate } = this.state;
-    this.setState({ rotate: !rotate }, () => this.resizePanel());
-  }
-
-  resizePanel() {
-    const { rotate } = this.state;
-    var pnlH = null;
-
-    if (rotate) {
-      var width = document.getElementById(this.props.children.props.id)
-        .clientWidth;
-      var height = document.getElementById(this.props.children.props.id)
-        .clientHeight;
-      pnlH =
-        (Math.max(width, height) * this.state.zoom) / 100 +
-        constants.deltaHeight;
-    } else {
-      var height = document.getElementById(this.props.children.props.id)
-        .clientHeight;
-      pnlH = (height * this.state.zoom) / 100 + constants.deltaHeight;
-    }
-
-    this.setState({ pnlHeight: pnlH }, () => {
-      this.props.onResize(this.state.pnlHeight);
-    });
+    this.setState({ rotate: !rotate }, () => this.getHeightWidth());
   }
 }
 
