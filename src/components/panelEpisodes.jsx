@@ -55,15 +55,17 @@ class PanelEpisodes extends Component {
     rows.push(
       <th
         key="ESHseparator"
-        className={this.props.rotate ? "cellRotated" : null}
+        className={this.props.rotate ? "headerCell cellRotated" : "headerCell"}
       >
-        +
+        <div className="cellSquare"></div>
       </th>
     );
     for (var i = min; i <= max; i++) {
       rows.push(
-        <th key={"EH" + i} className={this.props.rotate ? "cellRotated" : null}>
-          E{i}
+        <th key={"EH" + i} className={this.props.rotate ? "cellRotated" : ""}>
+          <div className="cellSquare">
+            <h6>E{i}</h6>
+          </div>
         </th>
       );
     }
@@ -93,9 +95,13 @@ class PanelEpisodes extends Component {
       <tr key={season}>
         <th
           key={"S" + season}
-          className={this.props.rotate ? "cellRotated" : null}
+          className={
+            this.props.rotate ? "headerCell cellRotated" : "headerCell"
+          }
         >
-          S{season}
+          <div className="cellSquare">
+            <h6>S{season}</h6>
+          </div>
         </th>
         {this.renderEpisode(this.props.episodesList[season])}
       </tr>

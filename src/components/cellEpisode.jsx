@@ -4,16 +4,21 @@ import "./cellEpisode.css";
 class CellEpisode extends Component {
   render() {
     return (
-      <td className={this.props.rotated ? "cellRotated" : null}>
-        {this.renderEpisodeCell()}
+      <td
+        className={
+          this.setBackgroundColorRating() +
+          (this.props.rotated ? " cellRotated" : "")
+        }
+      >
+        <div className="cellSquare">{this.renderEpisodeCell()}</div>
       </td>
     );
   }
 
   renderEpisodeCell() {
     var cell = (
-      <h4
-        className={this.setBackgroundColorRating()}
+      <h6
+        //className={this.setBackgroundColorRating()}
         title={`S${this.props.episodeInfo.season}, E${this.props.episodeInfo.number}`}
       >
         <a
@@ -26,7 +31,7 @@ class CellEpisode extends Component {
             ? this.props.episodeInfo.rating
             : "N.A"}
         </a>
-      </h4>
+      </h6>
     );
 
     return cell;

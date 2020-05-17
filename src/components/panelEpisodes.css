@@ -1,32 +1,31 @@
-.cellRotated {
-  color: white;
-  background-color: black;
-  transform: rotate(270deg) scale(-1, 1);
-  width: 40px;
-  height: 40px;
+h6 {
+  height: 100%;
+  margin: 0px;
   padding: 0px;
-  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.tableRotated {
-  transform-origin: 0% 0%;
-  /* transform: rotate(90deg) scale(1, -1); */
-  margin: 0 auto;
+.cellRotated {
+  transform: rotate(270deg) scale(-1, 1);
+}
+
+.cellSquare {
+  height: 40px;
+  width: 40px;
+  border: 2px solid white;
 }
 
 th,
 td {
   color: white;
   background-color: black;
-  width: 40px;
-  height: 40px;
   padding: 0px;
-  border: 2px solid white;
 }
 
 table {
   margin: 0 auto;
-  transform-origin: 0% 0%;
   margin-left: 10%;
   display: table-row;
 }

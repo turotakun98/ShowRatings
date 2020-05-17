@@ -30,7 +30,7 @@ class UtilityBar extends Component {
   render() {
     return (
       <div
-        id="divv"
+        id="tableContainer"
         className={
           //"col-md-10 panelContainer" + (this.state.visible ? "" : " d-none")
           "col-md-10" +
@@ -90,7 +90,7 @@ class UtilityBar extends Component {
       .getElementById(this.props.children.props.id)
       .getBoundingClientRect().width;
 
-    var widthD = document.getElementById("divv").offsetWidth;
+    var widthD = document.getElementById("tableContainer").offsetWidth;
     this.setState({ baseWidth: widthL, baseHeight: heightL, divWidth: widthD });
   }
 
