@@ -52,6 +52,7 @@ class UtilityBar extends Component {
           style={{
             height: this.state.baseHeight,
             width: this.state.baseWidth,
+            margin: "0 auto",
           }}
         >
           <div

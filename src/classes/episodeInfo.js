@@ -1,9 +1,19 @@
 class EpisodeInfo {
-  constructor(title, link, imageLink, rating, year, number, season) {
+  constructor(
+    title,
+    link,
+    imageLink,
+    rating,
+    ratingCount,
+    year,
+    number,
+    season
+  ) {
     this.title = title;
     this.link = link;
     this.imageLink = imageLink;
     this.rating = rating;
+    this.ratingCount = ratingCount;
     this.year = year;
     this.number = number;
     this.season = season;

@@ -19,7 +19,7 @@ class CellEpisode extends Component {
     var cell = (
       <h6
         //className={this.setBackgroundColorRating()}
-        title={`S${this.props.episodeInfo.season}, E${this.props.episodeInfo.number}`}
+        title={`S${this.props.episodeInfo.season}, E${this.props.episodeInfo.number},${this.props.episodeInfo.ratingCount}`}
       >
         <a
           href={this.props.episodeInfo.link}
