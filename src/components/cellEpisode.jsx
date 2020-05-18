@@ -17,21 +17,29 @@ class CellEpisode extends Component {
 
   renderEpisodeCell() {
     var cell = (
-      <h6
-        //className={this.setBackgroundColorRating()}
-        title={`S${this.props.episodeInfo.season}, E${this.props.episodeInfo.number},${this.props.episodeInfo.ratingCount}`}
+      <a
+        href={this.props.episodeInfo.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="noUnderline"
       >
-        <a
-          href={this.props.episodeInfo.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="noUnderline"
-        >
-          {this.props.episodeInfo.rating
-            ? this.props.episodeInfo.rating
-            : "N.A"}
-        </a>
-      </h6>
+        <div style={{ height: "100%", width: "100%", overflow: "hidden" }}>
+          <h6
+            //className={this.setBackgroundColorRating()}
+            title={`S${this.props.episodeInfo.season}, E${this.props.episodeInfo.number}, ${this.props.episodeInfo.ratingCount}`}
+            style={{ height: "50%" }}
+          >
+            {this.props.episodeInfo.rating
+              ? this.props.episodeInfo.rating
+              : "N.A"}
+          </h6>
+          <h6 style={{ height: "50%", fontSize: "0.5em" }}>
+            {this.props.episodeInfo.ratingCount
+              ? this.props.episodeInfo.ratingCount
+              : "N.A"}
+          </h6>
+        </div>
+      </a>
     );
 
     return cell;
