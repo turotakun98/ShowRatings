@@ -11,7 +11,8 @@ class PanelEpisodes extends Component {
     if (
       this.props.rotate === nextProps.rotate &&
       this.props.episodesList != null &&
-      this.props.episodesList === nextProps.episodesList
+      this.props.episodesList === nextProps.episodesList &&
+      this.props.countVisible === nextProps.countVisible
     ) {
       return false;
     } else {
@@ -53,10 +54,7 @@ class PanelEpisodes extends Component {
 
     var rows = [];
     rows.push(
-      <th
-        key="ESHseparator"
-        className={this.props.rotate ? "headerCell cellRotated" : "headerCell"}
-      >
+      <th key="ESHseparator" className={this.props.rotate ? "cellRotated" : ""}>
         <div className="cellSquare"></div>
       </th>
     );
@@ -64,7 +62,7 @@ class PanelEpisodes extends Component {
       rows.push(
         <th key={"EH" + i} className={this.props.rotate ? "cellRotated" : ""}>
           <div className="cellSquare">
-            <h6>E{i}</h6>
+            <h6 className="headerLabel">E{i}</h6>
           </div>
         </th>
       );
@@ -95,12 +93,10 @@ class PanelEpisodes extends Component {
       <tr key={season}>
         <th
           key={"S" + season}
-          className={
-            this.props.rotate ? "headerCell cellRotated" : "headerCell"
-          }
+          className={this.props.rotate ? "cellRotated" : ""}
         >
           <div className="cellSquare">
-            <h6>S{season}</h6>
+            <h6 className="headerLabel">S{season}</h6>
           </div>
         </th>
         {this.renderEpisode(this.props.episodesList[season])}
@@ -120,6 +116,7 @@ class PanelEpisodes extends Component {
         key={"S" + item.season + "E" + item.number}
         episodeInfo={item}
         rotated={this.props.rotate}
+        countVisible={this.props.countVisible}
       />
     ));
 

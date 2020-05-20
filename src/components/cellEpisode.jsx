@@ -23,26 +23,41 @@ class CellEpisode extends Component {
         rel="noopener noreferrer"
         className="noUnderline"
       >
-        <div style={{ height: "100%", width: "100%", overflow: "hidden" }}>
+        <div title={this.getTitleValue()} className="cellContainer">
           <h6
-            //className={this.setBackgroundColorRating()}
-            title={`S${this.props.episodeInfo.season}, E${this.props.episodeInfo.number}, ${this.props.episodeInfo.ratingCount}`}
-            style={{ height: "50%" }}
+            className={this.props.countVisible ? "rateLabel" : "rateLabelFull"}
           >
             {this.props.episodeInfo.rating
               ? this.props.episodeInfo.rating
               : "N.A"}
           </h6>
-          <h6 style={{ height: "50%", fontSize: "0.5em" }}>
-            {this.props.episodeInfo.ratingCount
-              ? this.props.episodeInfo.ratingCount
-              : "N.A"}
-          </h6>
+          {this.props.countVisible ? (
+            <h6 className="rateCountLabel">{this.getRatingCountValue()}</h6>
+          ) : (
+            <span></span>
+          )}
         </div>
       </a>
     );
 
     return cell;
+  }
+
+  getTitleValue() {
+    return `S${this.props.episodeInfo.season}, E${this.props.episodeInfo.number}, Count: ${this.props.episodeInfo.ratingCount}`;
+  }
+
+  getRatingCountValue() {
+    var { ratingCount } = this.props.episodeInfo;
+    if (ratingCount) {
+      if (ratingCount.length > 3) {
+        return ratingCount.substring(0, 4) + "k";
+      } else {
+        return ratingCount;
+      }
+    } else {
+      return "N.A.";
+    }
   }
 
   setBackgroundColorRating() {

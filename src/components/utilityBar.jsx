@@ -17,6 +17,7 @@ class UtilityBar extends Component {
     this.rotateTable = this.rotateTable.bind(this);
     this.episodesLoaded = this.episodesLoaded.bind(this);
     this.handleZoom = this.handleZoom.bind(this);
+    this.handleCountVisibility = this.handleCountVisibility.bind(this);
   }
   state = {
     zoom: 100,
@@ -25,6 +26,7 @@ class UtilityBar extends Component {
     baseHeight: 0,
     baseWidth: 0,
     divWidth: 0,
+    countVisible: true,
   };
 
   render() {
@@ -48,6 +50,11 @@ class UtilityBar extends Component {
           value={this.state.zoom ? this.state.zoom : constants.defZoom}
           onChange={this.handleZoom}
         ></input>
+        <input
+          type="checkbox"
+          checked={this.state.countVisible}
+          onChange={this.handleCountVisibility}
+        ></input>
         <div
           style={{
             height: this.state.baseHeight,
@@ -67,6 +74,7 @@ class UtilityBar extends Component {
               scaleFactor: this.state.zoom / 100,
               rotate: this.state.rotate,
               onLoad: this.episodesLoaded,
+              countVisible: this.state.countVisible,
             })}
           </div>
         </div>
@@ -93,6 +101,10 @@ class UtilityBar extends Component {
 
     var widthD = document.getElementById("tableContainer").offsetWidth;
     this.setState({ baseWidth: widthL, baseHeight: heightL, divWidth: widthD });
+  }
+
+  handleCountVisibility(event) {
+    this.setState({ countVisible: event.target.checked });
   }
 
   handleZoom(event) {

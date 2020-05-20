@@ -12,9 +12,13 @@ h6 {
 }
 
 .cellSquare {
-  height: 40px;
-  width: 40px;
+  height: 45px;
+  width: 45px;
   border: 2px solid white;
+}
+
+.headerLabel {
+  font-size: 1.2em !important;
 }
 
 th,

@@ -2,10 +2,6 @@ a {
   font-size: 1.3em;
 }
 
-h6 {
-  font-size: 0.9em !important;
-}
-
 .noUnderline {
   text-decoration: none;
   color: inherit !important;
@@ -43,4 +39,25 @@ h6 {
 .rateUndefined {
   background-color: grey;
   color: white;
+}
+
+.rateLabelFull {
+  height: 100%;
+  font-size: 1.2em !important;
+}
+
+.rateLabel {
+  height: 65%;
+  font-size: 1.1em !important;
+}
+
+.rateCountLabel {
+  height: 35%;
+  font-size: 0.6em !important;
+}
+
+.cellContainer {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
