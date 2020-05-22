@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./utilityBar.css";
+import RangePicker from "../classes/rangePicker";
 
 const constants = {
   maxZoom: 150,
@@ -19,6 +20,7 @@ class UtilityBar extends Component {
     this.handleZoom = this.handleZoom.bind(this);
     this.handleCountVisibility = this.handleCountVisibility.bind(this);
   }
+
   state = {
     zoom: 100,
     rotate: false,
@@ -27,6 +29,13 @@ class UtilityBar extends Component {
     baseWidth: 0,
     divWidth: 0,
     countVisible: true,
+    rangePickers: [
+      new RangePicker(0.1, 4.9, "#49525e"),
+      new RangePicker(5, 6.5, "#c92913"),
+      new RangePicker(6.6, 7.5, "#ffaa00"),
+      new RangePicker(7.6, 8.5, "#f5e033"),
+      new RangePicker(8.6, 10, "#7ecf4c"),
+    ],
   };
 
   render() {
@@ -55,6 +64,23 @@ class UtilityBar extends Component {
           checked={this.state.countVisible}
           onChange={this.handleCountVisibility}
         ></input>
+        <ul>
+          {this.state.rangePickers.map((item, i) => (
+            <li key={item.colorRGB}>
+              <input
+                type="number"
+                value={item.minValue}
+                onChange={this.increaseMinMaxValue}
+              ></input>
+              <input
+                type="number"
+                value={item.maxValue}
+                onChange={this.increaseMinMaxValue}
+              ></input>
+              <input type="text" value={item.colorRGB}></input>
+            </li>
+          ))}
+        </ul>
         <div
           style={{
             height: this.state.baseHeight,
@@ -80,6 +106,10 @@ class UtilityBar extends Component {
         </div>
       </div>
     );
+  }
+
+  increaseMinMaxValue(eventa) {
+    console.log(eventa, eventa.target.value);
   }
 
   episodesLoaded() {

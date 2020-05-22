@@ -8,6 +8,10 @@ class PanelEpisodes extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.episodesList !== nextProps.episodesList) {
+      this.props.onLoad();
+    }
+
     if (
       this.props.rotate === nextProps.rotate &&
       this.props.episodesList != null &&
@@ -17,12 +21,6 @@ class PanelEpisodes extends Component {
       return false;
     } else {
       return true;
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.episodesList !== nextProps.episodesList) {
-      this.props.onLoad();
     }
   }
 
