@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useDebugValue } from "react";
 import "./App.css";
 import SearchBar from "./components/searchBar";
 import PanelEpisodes from "./components/panelEpisodes";
@@ -6,6 +6,10 @@ import LoadingSpinner from "./components/loadingSpinner";
 import UtilityBar from "./components/utilityBar";
 import getEpisodesFromID from "./logic/getEpisodesFromID";
 import getSeriesInfoFromID from "./logic/getSeriesInfoFromID";
+
+import { increment } from "./redux/actions/incerement";
+import { useSelector, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 
 class App extends React.Component {
   constructor(props) {
@@ -23,45 +27,6 @@ class App extends React.Component {
     collapse: false,
     pnlH: null,
   };
-
-  async handleSearch(series) {
-    this.setState({ loading: true });
-    var eps = await getEpisodesFromID(series.idImdb);
-    var seriesInfo = await getSeriesInfoFromID(series.idImdb);
-    this.setState({
-      episodesList: eps,
-      series: series,
-      seriesInfo: seriesInfo,
-      loading: false,
-    });
-  }
-
-  getImage() {
-    const { series } = this.state;
-    var image = "";
-
-    if (series) {
-      var imageLink = series.imageLink;
-      image = imageLink;
-    }
-
-    return image;
-  }
-  getVisibility() {
-    if (this.state.collapse) {
-      return "hideBlock";
-    } else {
-      return "showBlock ";
-    }
-  }
-
-  clickCollapse(event) {
-    this.setState({ collapse: !this.state.collapse });
-  }
-
-  handleResize(height) {
-    this.setState({ pnlH: height });
-  }
 
   render() {
     return (
@@ -110,10 +75,51 @@ class App extends React.Component {
               episodesList={this.state.episodesList}
             />
           </UtilityBar>
+          <button onClick={() => this.props.increment()}>+</button>
         </div>
       </div>
     );
   }
+
+  async handleSearch(series) {
+    this.setState({ loading: true });
+    var eps = await getEpisodesFromID(series.idImdb);
+    var seriesInfo = await getSeriesInfoFromID(series.idImdb);
+    this.setState({
+      episodesList: eps,
+      series: series,
+      seriesInfo: seriesInfo,
+      loading: false,
+    });
+  }
+
+  getImage() {
+    const { series } = this.state;
+    var image = "";
+
+    if (series) {
+      var imageLink = series.imageLink;
+      image = imageLink;
+    }
+
+    return image;
+  }
+
+  getVisibility() {
+    if (this.state.collapse) {
+      return "hideBlock";
+    } else {
+      return "showBlock ";
+    }
+  }
+
+  clickCollapse(event) {
+    this.setState({ collapse: !this.state.collapse });
+  }
+
+  handleResize(height) {
+    this.setState({ pnlH: height });
+  }
 }
 
-export default App;
+export default connect(null, { increment })(App);
