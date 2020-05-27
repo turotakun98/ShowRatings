@@ -49,6 +49,7 @@ class UtilityBar extends Component {
           max={constants.maxZoom}
           value={this.state.zoom ? this.state.zoom : constants.defZoom}
           onChange={this.handleZoom}
+          className="slider"
         ></input>
         <input
           type="checkbox"

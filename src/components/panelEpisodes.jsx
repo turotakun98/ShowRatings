@@ -16,13 +16,10 @@ class PanelEpisodes extends Component {
     ) {
       return false;
     } else {
+      if (this.props.episodesList !== nextProps.episodesList) {
+        this.props.onLoad();
+      }
       return true;
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.episodesList !== nextProps.episodesList) {
-      this.props.onLoad();
     }
   }
 

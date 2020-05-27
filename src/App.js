@@ -51,7 +51,7 @@ class App extends React.Component {
     if (this.state.collapse) {
       return "hideBlock";
     } else {
-      return "showBlock ";
+      return "showBlock card";
     }
   }
 
@@ -89,18 +89,22 @@ class App extends React.Component {
             </button>
             <div className={this.getVisibility()}>
               <img
-                className="seriesCover"
+                className="seriesCover card-img-top"
                 src={this.getImage()}
                 alt={this.state.series != null ? this.state.series.title : ""}
               ></img>
               <br />
-              <p>
+              <h5 className="card-title">
                 {this.state.seriesInfo
-                  ? `${this.state.seriesInfo.genres} ${this.state.seriesInfo.rate}(${this.state.seriesInfo.rateCount})`
+                  ? `${this.state.seriesInfo.genres.join(", ")} ${
+                      this.state.seriesInfo.rate
+                    } (${this.state.seriesInfo.rateCount})`
                   : ""}
-              </p>
+              </h5>
               <br />
-              <p>{this.state.seriesInfo ? this.state.seriesInfo.plot : ""}</p>
+              <p className="card-text">
+                {this.state.seriesInfo ? this.state.seriesInfo.plot : ""}
+              </p>
             </div>
           </div>
 

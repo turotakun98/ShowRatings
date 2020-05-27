@@ -12,6 +12,5 @@ export default async function getSeriesInfoFromID(idSeries) {
     data.rate,
     data.rateCount
   );
-  console.log(series);
   return series;
 }

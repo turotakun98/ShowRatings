@@ -2,9 +2,7 @@ import EpisodeInfo from "../classes/episodeInfo";
 
 export default async function getEpisodesFromID(idSeries) {
   const url = "http://localhost:9000/episodesList/" + idSeries;
-  console.log(url);
   const response = await fetch(url);
-  console.log("response");
   const data = await response.json();
 
   var listEpisodes = {};
@@ -15,6 +13,7 @@ export default async function getEpisodesFromID(idSeries) {
       data[i].link,
       data[i].imageLink,
       data[i].rating,
+      data[i].ratingCount,
       data[i].year,
       data[i].number,
       data[i].season
