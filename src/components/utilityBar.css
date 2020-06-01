@@ -20,25 +20,39 @@
 
 .slider::-moz-range-thumb {
   width: 30px;
-  height: 30px;
+  height: 10px;
   border: 0;
-  background: url("../iconZoom.png");
+  /* background: url("../iconZoom.png"); */
+  background-color: blue;
   background-repeat: no-repeat;
   background-size: contain;
   cursor: pointer;
+  border-radius: 0;
 }
 
 .slider {
   -webkit-appearance: none;
   height: 10px;
   border-radius: 5px;
-  background: #d3d3d3;
+  background: red;
   outline: none;
   opacity: 0.7;
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;
 }
 
-.slider:hover {
-  opacity: 1;
+input[type="range"][orient="vertical"] {
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+  width: 8px;
+  height: 175px;
+  padding: 0 5px;
+}
+
+.rotateButton {
+  background: url("../rotate.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
 }

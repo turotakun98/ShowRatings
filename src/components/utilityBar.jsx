@@ -40,22 +40,33 @@ class UtilityBar extends Component {
           (this.state.baseWidth > this.state.divWidth ? " panelContainer" : "")
         }
       >
-        <button onClick={this.rotateTable}>r</button>
-        <button onClick={this.zoomIn}>+</button>
-        <button onClick={this.zoomOut}>-</button>
-        <input
-          type="range"
-          min={constants.minZoom}
-          max={constants.maxZoom}
-          value={this.state.zoom ? this.state.zoom : constants.defZoom}
-          onChange={this.handleZoom}
-          className="slider"
-        ></input>
-        <input
-          type="checkbox"
-          checked={this.state.countVisible}
-          onChange={this.handleCountVisibility}
-        ></input>
+        <div style={{ float: "left" }}>
+          <input
+            type="button"
+            onClick={this.rotateTable}
+            className="rotateButton"
+          ></input>
+          <br />
+          <button onClick={this.zoomIn}>+</button>
+          <br />
+          <input
+            type="range"
+            orient="vertical"
+            min={constants.minZoom}
+            max={constants.maxZoom}
+            value={this.state.zoom ? this.state.zoom : constants.defZoom}
+            onChange={this.handleZoom}
+            className="slider"
+          ></input>
+          <br />
+          <button onClick={this.zoomOut}>-</button>
+          <br />
+          <input
+            type="checkbox"
+            checked={this.state.countVisible}
+            onChange={this.handleCountVisibility}
+          ></input>
+        </div>
         <div
           style={{
             height: this.state.baseHeight,
