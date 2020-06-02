@@ -26,8 +26,13 @@ class App extends React.Component {
 
   async handleSearch(series) {
     this.setState({ loading: true });
-    var eps = await getEpisodesFromID(series.idImdb);
-    var seriesInfo = await getSeriesInfoFromID(series.idImdb);
+
+    var epsPromise = getEpisodesFromID(series.idImdb);
+    var seriesInfoPromise = getSeriesInfoFromID(series.idImdb);
+
+    var eps = await epsPromise;
+    var seriesInfo = await seriesInfoPromise;
+
     this.setState({
       episodesList: eps,
       series: series,

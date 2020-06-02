@@ -4,7 +4,6 @@ export default async function getEpisodesFromID(idSeries) {
   const url = "http://localhost:9000/episodesList/" + idSeries;
   const response = await fetch(url);
   const data = await response.json();
-
   var listEpisodes = {};
 
   for (let i = 0; i < data.length; i++) {

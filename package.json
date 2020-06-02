@@ -12,6 +12,7 @@
     "cheerio": "^1.0.0-rc.3",
     "fetch-jsonp": "^1.1.3",
     "node-sass": "^4.14.1",
+    "performance": "^1.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
