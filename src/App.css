@@ -42,8 +42,9 @@
 }
 
 .seriesCover {
-  max-width: 278px;
-  width: 100%;
+  /* max-width: 208px;
+  width: 100%; */
+  padding: 20px;
 }
 
 .hideBlock {

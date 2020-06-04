@@ -6,6 +6,7 @@ import LoadingSpinner from "./components/loadingSpinner";
 import UtilityBar from "./components/utilityBar";
 import getEpisodesFromID from "./logic/getEpisodesFromID";
 import getSeriesInfoFromID from "./logic/getSeriesInfoFromID";
+import { Card, CardMedia, CardContent, Typography } from "@material-ui/core";
 
 class App extends React.Component {
   constructor(props) {
@@ -48,6 +49,7 @@ class App extends React.Component {
     if (series) {
       var imageLink = series.imageLink;
       image = imageLink;
+      console.log("image", image);
     }
 
     return image;
@@ -92,7 +94,7 @@ class App extends React.Component {
             >
               Collapse
             </button>
-            <div className={this.getVisibility()}>
+            {/* <div className={this.getVisibility()}>
               <img
                 className="seriesCover card-img-top"
                 src={this.getImage()}
@@ -110,7 +112,28 @@ class App extends React.Component {
               <p className="card-text">
                 {this.state.seriesInfo ? this.state.seriesInfo.plot : ""}
               </p>
-            </div>
+            </div> */}
+            <Card>
+              <CardMedia
+                classes={{ media: "seriesCover" }}
+                component="img"
+                src={this.state.series && this.state.series.imageLink}
+                // alt={this.state.series != null ? this.state.series.title : ""}
+              ></CardMedia>
+              <CardContent className="card-title">
+                <Typography variant="body2">
+                  {this.state.seriesInfo
+                    ? `${this.state.seriesInfo.genres.join(", ")} ${
+                        this.state.seriesInfo.rate
+                      } (${this.state.seriesInfo.rateCount})`
+                    : ""}
+                </Typography>
+
+                <Typography paragraph className="card-text">
+                  {this.state.seriesInfo ? this.state.seriesInfo.plot : ""}
+                </Typography>
+              </CardContent>
+            </Card>
           </div>
 
           <UtilityBar onResize={this.handleResize}>

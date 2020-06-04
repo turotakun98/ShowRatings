@@ -1,5 +1,16 @@
 import React, { Component } from "react";
 import "./utilityBar.css";
+import Slider from "@material-ui/core/Slider";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import {
+  FormControl,
+  IconButton,
+  Checkbox,
+  FormControlLabel,
+} from "@material-ui/core";
+import AutorenewIcon from "@material-ui/icons/Autorenew";
+import ZoomInIcon from "@material-ui/icons/ZoomIn";
+import ZoomOutIcon from "@material-ui/icons/ZoomOut";
 
 const constants = {
   maxZoom: 150,
@@ -41,31 +52,44 @@ class UtilityBar extends Component {
         }
       >
         <div style={{ float: "left" }}>
-          <input
+          <IconButton
             type="button"
             onClick={this.rotateTable}
-            className="rotateButton"
-          ></input>
+            color="inherit"
+            // className="rotateButton"
+          >
+            <AutorenewIcon />
+          </IconButton>
           <br />
-          <button onClick={this.zoomIn}>+</button>
+          <IconButton onClick={this.zoomIn}>
+            <ZoomInIcon color="inherit" />
+          </IconButton>
           <br />
-          <input
-            type="range"
-            orient="vertical"
+          <PrettoSlider
+            valueLabelDisplay="auto"
+            orientation="vertical"
+            value={this.state.zoom || constants.defZoom}
+            onChange={this.handleZoom}
             min={constants.minZoom}
             max={constants.maxZoom}
-            value={this.state.zoom ? this.state.zoom : constants.defZoom}
-            onChange={this.handleZoom}
-            className="slider"
-          ></input>
+          />
           <br />
-          <button onClick={this.zoomOut}>-</button>
+          <IconButton onClick={this.zoomOut}>
+            <ZoomOutIcon color="inherit" />
+          </IconButton>
           <br />
-          <input
-            type="checkbox"
-            checked={this.state.countVisible}
-            onChange={this.handleCountVisibility}
-          ></input>
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.countVisible}
+                onChange={this.handleCountVisibility}
+                name="checkedB"
+                color="primary"
+              />
+            }
+            label="Counter"
+          />
         </div>
         <div
           style={{
@@ -119,10 +143,8 @@ class UtilityBar extends Component {
     this.setState({ countVisible: event.target.checked });
   }
 
-  handleZoom(event) {
-    this.setState({ zoom: Math.floor(event.target.value) }, () =>
-      this.getHeightWidth()
-    );
+  handleZoom(event, newValue) {
+    this.setState({ zoom: Math.floor(newValue) }, () => this.getHeightWidth());
   }
 
   zoomIn() {
@@ -144,3 +166,34 @@ class UtilityBar extends Component {
 }
 
 export default UtilityBar;
+
+const PrettoSlider = withStyles({
+  root: {
+    color: "#52af77",
+    height: "200px !important",
+  },
+  thumb: {
+    height: 24,
+    width: 24,
+    backgroundColor: "#fff",
+    border: "2px solid currentColor",
+    marginTop: -8,
+    marginLeft: "-11px !important",
+    transform: "rotate(90deg) !important",
+    "&:focus, &:hover, &$active": {
+      boxShadow: "inherit",
+    },
+  },
+  active: {},
+  valueLabel: {
+    left: "auto",
+  },
+  track: {
+    height: 8,
+    borderRadius: 4,
+  },
+  rail: {
+    height: 8,
+    borderRadius: 4,
+  },
+})(Slider);
