@@ -51,7 +51,7 @@ class UtilityBar extends Component {
           (this.state.baseWidth > this.state.divWidth ? " panelContainer" : "")
         }
       >
-        <div style={{ float: "left" }}>
+        <div style={{ float: "left", width: "110px" }}>
           <IconButton
             type="button"
             onClick={this.rotateTable}
@@ -91,27 +91,30 @@ class UtilityBar extends Component {
             label="Counter"
           />
         </div>
-        <div
-          style={{
-            height: this.state.baseHeight,
-            width: this.state.baseWidth,
-            margin: "0 auto",
-          }}
-        >
+        <div style={{ width: "calc(100% - 110px)", overflow: "auto hidden" }}>
           <div
-            className="transformContainer"
             style={{
-              transform:
-                `scale(${this.state.zoom / 100}) ` +
-                (this.state.rotate ? " scaleX(-1) rotate(90deg)" : ""),
+              height: this.state.baseHeight,
+              width: this.state.baseWidth,
+              margin: "0",
             }}
           >
-            {React.cloneElement(this.props.children, {
-              scaleFactor: this.state.zoom / 100,
-              rotate: this.state.rotate,
-              onLoad: this.episodesLoaded,
-              countVisible: this.state.countVisible,
-            })}
+            <div
+              className="transformContainer"
+              style={{
+                width: `calc(100% / ${this.state.zoom / 100})`,
+                transform:
+                  `scale(${this.state.zoom / 100}) ` +
+                  (this.state.rotate ? " scaleX(-1) rotate(90deg)" : ""),
+              }}
+            >
+              {React.cloneElement(this.props.children, {
+                scaleFactor: this.state.zoom / 100,
+                rotate: this.state.rotate,
+                onLoad: this.episodesLoaded,
+                countVisible: this.state.countVisible,
+              })}
+            </div>
           </div>
         </div>
       </div>
