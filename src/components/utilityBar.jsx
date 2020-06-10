@@ -29,6 +29,7 @@ class UtilityBar extends Component {
     this.episodesLoaded = this.episodesLoaded.bind(this);
     this.handleZoom = this.handleZoom.bind(this);
     this.handleCountVisibility = this.handleCountVisibility.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
   state = {
     zoom: 100,
@@ -36,8 +37,10 @@ class UtilityBar extends Component {
     visible: false,
     baseHeight: 0,
     baseWidth: 0,
+    pageWidth: 0,
     divWidth: 0,
     countVisible: true,
+    centerPanelX: 0,
   };
 
   render() {
@@ -91,12 +94,16 @@ class UtilityBar extends Component {
             label="Counter"
           />
         </div>
-        <div style={{ width: "calc(100% - 110px)", overflow: "auto hidden" }}>
+        <div
+          id="centerPanel"
+          style={{ width: "calc(100% - 110px)", overflow: "auto hidden" }}
+        >
           <div
             style={{
               height: this.state.baseHeight,
               width: this.state.baseWidth,
-              margin: "0",
+              marginLeft: this.centerTable(),
+              marginTop: "10px",
             }}
           >
             <div
@@ -121,6 +128,31 @@ class UtilityBar extends Component {
     );
   }
 
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions() {
+    var panelPosX = document
+      .getElementById("centerPanel")
+      .getBoundingClientRect().x;
+
+    this.setState({ pageWidth: window.innerWidth, centerPanelX: panelPosX });
+  }
+
+  centerTable() {
+    var pageCenter = this.state.pageWidth / 2;
+    var tableCenter = this.state.baseWidth / 2;
+    var panelCenter = pageCenter - tableCenter - this.state.centerPanelX;
+
+    return panelCenter > 0 ? panelCenter : 0;
+  }
+
   episodesLoaded() {
     this.setState(
       {
@@ -138,8 +170,14 @@ class UtilityBar extends Component {
       .getElementById(this.props.children.props.id)
       .getBoundingClientRect().width;
 
-    var widthD = document.getElementById("tableContainer").offsetWidth;
-    this.setState({ baseWidth: widthL, baseHeight: heightL, divWidth: widthD });
+    var panelPosX = document
+      .getElementById("centerPanel")
+      .getBoundingClientRect().x;
+    this.setState({
+      baseWidth: widthL,
+      baseHeight: heightL,
+      centerPanelX: panelPosX,
+    });
   }
 
   handleCountVisibility(event) {
