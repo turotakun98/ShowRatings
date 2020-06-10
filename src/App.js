@@ -76,7 +76,10 @@ class App extends React.Component {
         <div className="row">
           <div className="col-md-4"></div>
           <div className="col-md-4">
-            <SearchBar onSearch={this.handleSearch} />
+            <SearchBar
+              onSearch={this.handleSearch}
+              style={{ marginTop: 20, width: 616 }}
+            />
             <LoadingSpinner loading={this.state.loading} />
           </div>
         </div>
@@ -94,25 +97,6 @@ class App extends React.Component {
             >
               Collapse
             </button>
-            {/* <div className={this.getVisibility()}>
-              <img
-                className="seriesCover card-img-top"
-                src={this.getImage()}
-                alt={this.state.series != null ? this.state.series.title : ""}
-              ></img>
-              <br />
-              <h5 className="card-title">
-                {this.state.seriesInfo
-                  ? `${this.state.seriesInfo.genres.join(", ")} ${
-                      this.state.seriesInfo.rate
-                    } (${this.state.seriesInfo.rateCount})`
-                  : ""}
-              </h5>
-              <br />
-              <p className="card-text">
-                {this.state.seriesInfo ? this.state.seriesInfo.plot : ""}
-              </p>
-            </div> */}
             <Card>
               <CardMedia
                 classes={{ media: "seriesCover" }}

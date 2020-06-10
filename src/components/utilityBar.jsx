@@ -103,7 +103,7 @@ class UtilityBar extends Component {
               height: this.state.baseHeight,
               width: this.state.baseWidth,
               marginLeft: this.centerTable(),
-              marginTop: "10px",
+              marginTop: "50px",
             }}
           >
             <div

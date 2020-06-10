@@ -20,6 +20,7 @@ class SearchBar extends Component {
         className="SearchBar"
         onBlur={this.handleBlur}
         onFocus={this.handleFocus}
+        style={this.props.style}
       >
         <input
           type="text"
