@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./searchBar.css";
 import getSeriesListByTitle from "../logic/getSeriesListByTitle";
+import iconImageNotFound from "../iconImageNotFound.png"; //
 
 class SearchBar extends Component {
   state = {
@@ -77,7 +78,7 @@ class SearchBar extends Component {
           <li onMouseDown={() => this.handleClick(i)} key={"li" + item.idImdb}>
             <div className="BasicContainer">
               <img
-                src={item.imageLink ? item.imageLink : "//:0"}
+                src={item.imageLink || iconImageNotFound}
                 key={"img" + item.idImdb}
                 alt={item.imageLink ? item.title : ""}
               />

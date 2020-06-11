@@ -7,6 +7,7 @@ import UtilityBar from "./components/utilityBar";
 import getEpisodesFromID from "./logic/getEpisodesFromID";
 import getSeriesInfoFromID from "./logic/getSeriesInfoFromID";
 import { Card, CardMedia, CardContent, Typography } from "@material-ui/core";
+import iconImageNotFound from "./iconImageNotFound.png";
 
 class App extends React.Component {
   constructor(props) {
@@ -101,7 +102,10 @@ class App extends React.Component {
               <CardMedia
                 classes={{ media: "seriesCover" }}
                 component="img"
-                src={this.state.series && this.state.series.imageLink}
+                src={
+                  this.state.series &&
+                  (this.state.series.imageLink || iconImageNotFound)
+                }
                 // alt={this.state.series != null ? this.state.series.title : ""}
               ></CardMedia>
               <CardContent className="card-title">
