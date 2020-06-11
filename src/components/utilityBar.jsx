@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import "./utilityBar.css";
 import Slider from "@material-ui/core/Slider";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import {
-  FormControl,
-  IconButton,
-  Checkbox,
-  FormControlLabel,
-} from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { IconButton, Checkbox, FormControlLabel } from "@material-ui/core";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
 import ZoomOutIcon from "@material-ui/icons/ZoomOut";
@@ -54,31 +49,37 @@ class UtilityBar extends Component {
           (this.state.baseWidth > this.state.divWidth ? " panelContainer" : "")
         }
       >
-        <div style={{ float: "left", width: "110px" }}>
+        <div
+          className="d-none d-sm-none d-md-none d-lg-block d-xl-block"
+          style={{ float: "left", width: "110px" }}
+        >
           <IconButton
             type="button"
             onClick={this.rotateTable}
-            color="inherit"
+            style={{ color: "black" }}
             // className="rotateButton"
           >
             <AutorenewIcon />
           </IconButton>
           <br />
           <IconButton onClick={this.zoomIn}>
-            <ZoomInIcon color="inherit" />
+            <ZoomInIcon style={{ color: "black" }} />
           </IconButton>
           <br />
-          <PrettoSlider
-            valueLabelDisplay="auto"
-            orientation="vertical"
-            value={this.state.zoom || constants.defZoom}
-            onChange={this.handleZoom}
-            min={constants.minZoom}
-            max={constants.maxZoom}
-          />
+          <div style={{ height: 200 }}>
+            <PrettoSlider
+              valueLabelDisplay="auto"
+              orientation="vertical"
+              rotate="true"
+              value={this.state.zoom || constants.defZoom}
+              onChange={this.handleZoom}
+              min={constants.minZoom}
+              max={constants.maxZoom}
+            />
+          </div>
           <br />
           <IconButton onClick={this.zoomOut}>
-            <ZoomOutIcon color="inherit" />
+            <ZoomOutIcon style={{ color: "black" }} />
           </IconButton>
           <br />
 
@@ -95,8 +96,50 @@ class UtilityBar extends Component {
           />
         </div>
         <div
+          className="d-block d-sm-block d-md-block d-lg-none d-xl-none"
+          style={{ float: "left", width: "100%", maxWidth: 600 }}
+        >
+          <IconButton
+            type="button"
+            onClick={this.rotateTable}
+            style={{ color: "black" }}
+            // className="rotateButton"
+          >
+            <AutorenewIcon />
+          </IconButton>
+          <IconButton onClick={this.zoomIn}>
+            <ZoomInIcon style={{ color: "black" }} />
+          </IconButton>
+          <div style={{ width: 200, display: "inline-block" }}>
+            <PrettoSlider
+              valueLabelDisplay="auto"
+              value={this.state.zoom || constants.defZoom}
+              onChange={this.handleZoom}
+              min={constants.minZoom}
+              max={constants.maxZoom}
+            />
+          </div>
+          <IconButton onClick={this.zoomOut}>
+            <ZoomOutIcon style={{ color: "black" }} />
+          </IconButton>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.countVisible}
+                onChange={this.handleCountVisibility}
+                name="checkedB"
+                color="primary"
+              />
+            }
+            label="Counter"
+          />
+        </div>
+        <div
           id="centerPanel"
-          style={{ width: "calc(100% - 110px)", overflow: "auto hidden" }}
+          style={{
+            width: `calc(100% - ${this.state.pageWidth > 992 ? 110 : 0}px)`,
+            overflow: "auto hidden",
+          }}
         >
           <div
             style={{
@@ -211,7 +254,6 @@ export default UtilityBar;
 const PrettoSlider = withStyles({
   root: {
     color: "#52af77",
-    height: "200px !important",
   },
   thumb: {
     height: 24,
@@ -230,11 +272,11 @@ const PrettoSlider = withStyles({
     left: "auto",
   },
   track: {
-    height: 8,
+    height: 2,
     borderRadius: 4,
   },
   rail: {
-    height: 8,
+    height: 2,
     borderRadius: 4,
   },
 })(Slider);

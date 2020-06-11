@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./searchBar.css";
 import getSeriesListByTitle from "../logic/getSeriesListByTitle";
-import iconImageNotFound from "../iconImageNotFound.png"; //
+import iconImageNotFound from "../iconImageNotFound.png";
+import { IconButton } from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 class SearchBar extends Component {
   state = {
@@ -13,6 +15,7 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.handleTextChange = this.handleTextChange.bind(this);
+    this.cancelSearch = this.cancelSearch.bind(this);
   }
 
   render() {
@@ -23,15 +26,33 @@ class SearchBar extends Component {
         onFocus={this.handleFocus}
         style={this.props.style}
       >
-        <input
-          type="text"
-          placeholder="Search TV show ..."
-          onChange={this.handleTextChange}
-          value={this.state.text}
-        />
+        <div>
+          <input
+            autoFocus
+            ref={(input) => {
+              this.searchInput = input;
+            }}
+            type="text"
+            placeholder="Search TV show ..."
+            onChange={this.handleTextChange}
+            value={this.state.text}
+          />
+          <IconButton
+            onClick={this.cancelSearch}
+            style={{ width: 40, height: 40 }}
+          >
+            <CancelIcon />
+          </IconButton>
+        </div>
         {this.renderSuggestion()}
       </div>
     );
+  }
+
+  cancelSearch() {
+    this.setState({ text: "", suggestions: [], showSuggestions: false }, () => {
+      this.searchInput.focus();
+    });
   }
 
   handleFocus = (event) => {

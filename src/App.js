@@ -8,6 +8,7 @@ import getEpisodesFromID from "./logic/getEpisodesFromID";
 import getSeriesInfoFromID from "./logic/getSeriesInfoFromID";
 import { Card, CardMedia, CardContent, Typography } from "@material-ui/core";
 import iconImageNotFound from "./iconImageNotFound.png";
+import Collapse from "@material-ui/core/Collapse";
 
 class App extends React.Component {
   constructor(props) {
@@ -74,13 +75,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div className="row">
+        <div className="row" style={{ margin: 0 }}>
           <div className="col-md-4"></div>
           <div className="col-md-4">
-            <SearchBar
-              onSearch={this.handleSearch}
-              style={{ marginTop: 20, width: 616 }}
-            />
+            <SearchBar onSearch={this.handleSearch} style={{ marginTop: 20 }} />
             <LoadingSpinner loading={this.state.loading} />
           </div>
         </div>
@@ -89,39 +87,27 @@ class App extends React.Component {
           className="row"
           style={{
             height: this.state.pnlH ? this.state.pnlH : "",
+            margin: 0,
           }}
         >
           <div className="col-md-2">
-            <button
-              className="btn btn-primary d-sm-none"
-              onClick={this.clickCollapse}
-            >
-              Collapse
-            </button>
-            <Card>
-              <CardMedia
-                classes={{ media: "seriesCover" }}
-                component="img"
-                src={
-                  this.state.series &&
-                  (this.state.series.imageLink || iconImageNotFound)
-                }
-                // alt={this.state.series != null ? this.state.series.title : ""}
-              ></CardMedia>
-              <CardContent className="card-title">
-                <Typography variant="body2">
-                  {this.state.seriesInfo
-                    ? `${this.state.seriesInfo.genres.join(", ")} ${
-                        this.state.seriesInfo.rate
-                      } (${this.state.seriesInfo.rateCount})`
-                    : ""}
-                </Typography>
-
-                <Typography paragraph className="card-text">
-                  {this.state.seriesInfo ? this.state.seriesInfo.plot : ""}
-                </Typography>
-              </CardContent>
-            </Card>
+            {this.state.series && (
+              <button
+                className="btn btn-primary d-sm-none"
+                style={{ margin: 20 }}
+                onClick={this.clickCollapse}
+              >
+                {this.state.collapse ? "Expand" : "Collapse"}
+              </button>
+            )}
+            <Collapse in={!this.state.collapse}>
+              {this.state.series && (
+                <SeriesInfoCard
+                  series={this.state.series}
+                  seriesInfo={this.state.seriesInfo}
+                />
+              )}
+            </Collapse>
           </div>
 
           <UtilityBar onResize={this.handleResize}>
@@ -134,6 +120,32 @@ class App extends React.Component {
       </div>
     );
   }
+}
+
+function SeriesInfoCard(props) {
+  return (
+    <Card>
+      <CardMedia
+        classes={{ media: "seriesCover" }}
+        component="img"
+        src={props.series && (props.series.imageLink || iconImageNotFound)}
+        // alt={this.state.series != null ? this.state.series.title : ""}
+      ></CardMedia>
+      <CardContent className="card-title">
+        <Typography variant="body2">
+          {props.seriesInfo
+            ? `${props.seriesInfo.genres.join(", ")} ${
+                props.seriesInfo.rate
+              } (${props.seriesInfo.rateCount})`
+            : ""}
+        </Typography>
+
+        <Typography paragraph className="card-text">
+          {props.seriesInfo ? props.seriesInfo.plot : ""}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
 }
 
 export default App;

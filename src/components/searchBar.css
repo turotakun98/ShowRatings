@@ -18,7 +18,7 @@ h6 {
 }
 
 .SearchBar input {
-  width: 100%;
+  width: calc(100% - 40px);
   border: none;
   font-family: Roboto, Arial, Helvetica, sans-serif;
   font-size: 16px;
