@@ -71,14 +71,11 @@ class PanelEpisodes extends Component {
   getMinMaxEpisodeNumber() {
     const { episodesList } = this.props;
     let max = -Infinity;
-    let min = Infinity;
+    let min = 1;
 
     for (let s in episodesList) {
-      for (let e = 0; e < episodesList[s].length; e++) {
-        let episodeNr = Math.floor(episodesList[s][e].number);
-        if (episodeNr > max) max = episodeNr;
-        if (episodeNr < min) min = episodeNr;
-      }
+      let episodeNr = episodesList[s].length;
+      if (episodeNr > max) max = episodeNr;
     }
     return [min, max];
   }
@@ -96,14 +93,14 @@ class PanelEpisodes extends Component {
             <h6 className="headerLabel">S{season}</h6>
           </div>
         </th>
-        {this.renderEpisode(this.props.episodesList[season])}
+        {this.renderEpisodes(this.props.episodesList[season])}
       </tr>
     ));
 
     return retVal;
   }
 
-  renderEpisode(episodes) {
+  renderEpisodes(episodes) {
     const episodesSorted = episodes.sort(
       (a, b) => Math.floor(a.number) - Math.floor(b.number)
     );
