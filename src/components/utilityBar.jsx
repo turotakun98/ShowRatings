@@ -49,91 +49,30 @@ class UtilityBar extends Component {
           (this.state.baseWidth > this.state.divWidth ? " panelContainer" : "")
         }
       >
-        <div
+        <IconsBar
           className="d-none d-sm-none d-md-none d-lg-block d-xl-block"
           style={{ float: "left", width: "110px" }}
-        >
-          <IconButton
-            type="button"
-            onClick={this.rotateTable}
-            style={{ color: "black" }}
-            // className="rotateButton"
-          >
-            <AutorenewIcon />
-          </IconButton>
-          <br />
-          <IconButton onClick={this.zoomIn}>
-            <ZoomInIcon style={{ color: "black" }} />
-          </IconButton>
-          <br />
-          <div style={{ height: 200 }}>
-            <PrettoSlider
-              valueLabelDisplay="auto"
-              orientation="vertical"
-              rotate="true"
-              value={this.state.zoom || constants.defZoom}
-              onChange={this.handleZoom}
-              min={constants.minZoom}
-              max={constants.maxZoom}
-            />
-          </div>
-          <br />
-          <IconButton onClick={this.zoomOut}>
-            <ZoomOutIcon style={{ color: "black" }} />
-          </IconButton>
-          <br />
-
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={this.state.countVisible}
-                onChange={this.handleCountVisibility}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Counter"
-          />
-        </div>
-        <div
+          rotate={true}
+          zoom={this.state.zoom}
+          countVisible={this.state.countVisible}
+          onChangeCountVisibility={this.handleCountVisibility}
+          onChangeZoom={this.handleZoom}
+          onZoomIn={this.zoomIn}
+          onZoomOut={this.zoomOut}
+          onRotateTable={this.rotateTable}
+        />
+        <IconsBar
           className="d-block d-sm-block d-md-block d-lg-none d-xl-none"
           style={{ float: "left", width: "100%", maxWidth: 600 }}
-        >
-          <IconButton
-            type="button"
-            onClick={this.rotateTable}
-            style={{ color: "black" }}
-            // className="rotateButton"
-          >
-            <AutorenewIcon />
-          </IconButton>
-          <IconButton onClick={this.zoomIn}>
-            <ZoomInIcon style={{ color: "black" }} />
-          </IconButton>
-          <div style={{ width: 200, display: "inline-block" }}>
-            <PrettoSlider
-              valueLabelDisplay="auto"
-              value={this.state.zoom || constants.defZoom}
-              onChange={this.handleZoom}
-              min={constants.minZoom}
-              max={constants.maxZoom}
-            />
-          </div>
-          <IconButton onClick={this.zoomOut}>
-            <ZoomOutIcon style={{ color: "black" }} />
-          </IconButton>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={this.state.countVisible}
-                onChange={this.handleCountVisibility}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Counter"
-          />
-        </div>
+          rotate={false}
+          zoom={this.state.zoom}
+          countVisible={this.state.countVisible}
+          onChangeCountVisibility={this.handleCountVisibility}
+          onChangeZoom={this.handleZoom}
+          onZoomIn={this.zoomIn}
+          onZoomOut={this.zoomOut}
+          onRotateTable={this.rotateTable}
+        />
         <div
           id="centerPanel"
           style={{
@@ -249,8 +188,70 @@ class UtilityBar extends Component {
   }
 }
 
-export default UtilityBar;
+const IconsBar = ({
+  className,
+  style,
+  rotate,
+  zoom,
+  countVisible,
+  onChangeCountVisibility,
+  onChangeZoom,
+  onZoomIn,
+  onZoomOut,
+  onRotateTable,
+}) => {
+  return (
+    <div className={className} style={style}>
+      <IconButton
+        type="button"
+        onClick={onRotateTable}
+        style={{ color: "black" }}
+      >
+        <AutorenewIcon />
+      </IconButton>
+      {rotate && <br />}
+      <IconButton onClick={onZoomIn}>
+        <ZoomInIcon style={{ color: "black" }} />
+      </IconButton>
+      {rotate && <br />}
+      <div
+        style={{
+          width: rotate ? "" : 200,
+          height: rotate ? 200 : "",
+          display: rotate ? "" : "inline-block",
+        }}
+      >
+        <PrettoSlider
+          valueLabelDisplay="auto"
+          orientation={rotate ? "vertical" : "horizontal"}
+          value={zoom || constants.defZoom}
+          onChange={onChangeZoom}
+          min={constants.minZoom}
+          max={constants.maxZoom}
+        />
+      </div>
+      {rotate && <br />}
+      <IconButton onClick={onZoomOut}>
+        <ZoomOutIcon style={{ color: "black" }} />
+      </IconButton>
+      {rotate && <br />}
 
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={countVisible}
+            onChange={onChangeCountVisibility}
+            name="checkedB"
+            color="primary"
+          />
+        }
+        label="Counter"
+      />
+    </div>
+  );
+};
+
+export default UtilityBar;
 const PrettoSlider = withStyles({
   root: {
     color: "#52af77",

@@ -44,7 +44,7 @@ class CellEpisode extends Component {
   }
 
   getTitleValue() {
-    return `S${this.props.episodeInfo.season}, E${this.props.episodeInfo.number}, Count: ${this.props.episodeInfo.ratingCount}`;
+    return `S${this.props.episodeInfo.season}, E${this.props.episodeInfo.number}, ${this.props.episodeInfo.title}`;
   }
 
   getRatingCountValue() {

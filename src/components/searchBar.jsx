@@ -39,7 +39,7 @@ class SearchBar extends Component {
           />
           <IconButton
             onClick={this.cancelSearch}
-            style={{ width: 40, height: 40 }}
+            style={{ width: 40, height: 40, float: "right" }}
           >
             <CancelIcon />
           </IconButton>

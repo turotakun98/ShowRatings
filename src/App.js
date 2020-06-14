@@ -56,13 +56,6 @@ class App extends React.Component {
 
     return image;
   }
-  getVisibility() {
-    if (this.state.collapse) {
-      return "hideBlock";
-    } else {
-      return "showBlock card";
-    }
-  }
 
   clickCollapse(event) {
     this.setState({ collapse: !this.state.collapse });
@@ -132,16 +125,19 @@ function SeriesInfoCard(props) {
         // alt={this.state.series != null ? this.state.series.title : ""}
       ></CardMedia>
       <CardContent className="card-title">
-        <Typography variant="body2">
+        <Typography variant="body2" align="left" display="block">
+          <b>Genres: </b>
+          {props.seriesInfo ? `${props.seriesInfo.genres.join(", ")}` : ""}
+        </Typography>
+        <Typography variant="body2" align="left" display="block">
+          <b>Rate: </b>
           {props.seriesInfo
-            ? `${props.seriesInfo.genres.join(", ")} ${
-                props.seriesInfo.rate
-              } (${props.seriesInfo.rateCount})`
+            ? `${props.seriesInfo.rate}/10 (${props.seriesInfo.rateCount} votes)`
             : ""}
         </Typography>
-
-        <Typography paragraph className="card-text">
-          {props.seriesInfo ? props.seriesInfo.plot : ""}
+        <Typography variant="body2" align="left" display="block">
+          <b>Plot: </b>
+          {props.seriesInfo ? `${props.seriesInfo.plot}` : ""}
         </Typography>
       </CardContent>
     </Card>
