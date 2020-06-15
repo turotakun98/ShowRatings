@@ -55,3 +55,7 @@
   display: block;
   margin: 25px;
 }
+
+button:focus {
+  outline: none !important;
+}

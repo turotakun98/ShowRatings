@@ -211,12 +211,16 @@ const IconsBar = ({
       </IconButton>
       {rotate && <br />}
       <IconButton onClick={onZoomIn}>
-        <ZoomInIcon style={{ color: "black" }} />
+        {rotate ? (
+          <ZoomInIcon style={{ color: "black" }} />
+        ) : (
+          <ZoomOutIcon style={{ color: "black" }} />
+        )}
       </IconButton>
       {rotate && <br />}
       <div
         style={{
-          width: rotate ? "" : 200,
+          width: rotate ? "" : 150,
           height: rotate ? 200 : "",
           display: rotate ? "" : "inline-block",
         }}
@@ -230,13 +234,15 @@ const IconsBar = ({
           max={constants.maxZoom}
         />
       </div>
-      {rotate && <br />}
       <IconButton onClick={onZoomOut}>
-        <ZoomOutIcon style={{ color: "black" }} />
+        {rotate ? (
+          <ZoomOutIcon style={{ color: "black" }} />
+        ) : (
+          <ZoomInIcon style={{ color: "black" }} />
+        )}
       </IconButton>
-      {rotate && <br />}
-
-      <FormControlLabel
+      {/* {rotate && <br />} */}
+      {/* <FormControlLabel
         control={
           <Checkbox
             checked={countVisible}
@@ -246,22 +252,22 @@ const IconsBar = ({
           />
         }
         label="Counter"
-      />
+      /> */}
     </div>
   );
 };
 
-export default UtilityBar;
 const PrettoSlider = withStyles({
   root: {
     color: "#52af77",
+    padding: "6px 0",
   },
   thumb: {
     height: 24,
     width: 24,
     backgroundColor: "#fff",
     border: "2px solid currentColor",
-    marginTop: -8,
+    marginTop: -11, //-8,
     marginLeft: "-11px !important",
     transform: "rotate(90deg) !important",
     "&:focus, &:hover, &$active": {
@@ -281,3 +287,5 @@ const PrettoSlider = withStyles({
     borderRadius: 4,
   },
 })(Slider);
+
+export default UtilityBar;
