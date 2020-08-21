@@ -52,7 +52,7 @@ class PanelEpisodes extends Component {
         var rows = [];
         rows.push(
             <th key="ESHseparator" className={this.props.rotate ? "cellRotated" : ""}>
-                <div className="cellSquare"></div>
+                <div className="cellSquare" />
             </th>
         );
         for (var i = min; i <= max; i++) {

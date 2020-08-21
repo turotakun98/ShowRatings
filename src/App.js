@@ -68,11 +68,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <LoadingSpinner loading={this.state.loading} />
         <div className="row" style={{ margin: 0 }}>
-          <div className="col-md-4"></div>
+          <div className="col-md-4" />
           <div className="col-md-4">
             <SearchBar onSearch={this.handleSearch} style={{ marginTop: 20 }} />
-            <LoadingSpinner loading={this.state.loading} />
           </div>
         </div>
 
@@ -123,7 +123,7 @@ function SeriesInfoCard(props) {
         component="img"
         src={props.series && (props.series.imageLink || iconImageNotFound)}
         // alt={this.state.series != null ? this.state.series.title : ""}
-      ></CardMedia>
+      />
       <CardContent className="card-title">
         <Typography variant="body2" align="left" display="block">
           <b>Genres: </b>

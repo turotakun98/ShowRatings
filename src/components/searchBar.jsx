@@ -26,24 +26,22 @@ class SearchBar extends Component {
         onFocus={this.handleFocus}
         style={this.props.style}
       >
-        <div>
-          <input
-            autoFocus
-            ref={(input) => {
-              this.searchInput = input;
-            }}
-            type="text"
-            placeholder="Search TV show ..."
-            onChange={this.handleTextChange}
-            value={this.state.text}
-          />
-          <IconButton
-            onClick={this.cancelSearch}
-            style={{ width: 40, height: 40, float: "right" }}
-          >
-            <CancelIcon />
-          </IconButton>
-        </div>
+        <input
+          autoFocus
+          ref={(input) => {
+            this.searchInput = input;
+          }}
+          type="text"
+          placeholder="Search TV show..."
+          onChange={this.handleTextChange}
+          value={this.state.text}
+        />
+        <IconButton
+          onClick={this.cancelSearch}
+          style={{ width: 40, height: 40, float: "right" }}
+        >
+          <CancelIcon fontSize="small" />
+        </IconButton>
         {this.renderSuggestion()}
       </div>
     );
