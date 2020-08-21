@@ -34,7 +34,7 @@ class CellEpisode extends Component {
           {this.props.countVisible ? (
             <h6 className="rateCountLabel">{this.getRatingCountValue()}</h6>
           ) : (
-            <span></span>
+            <span />
           )}
         </div>
       </a>

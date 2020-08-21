@@ -5,14 +5,16 @@ class LoadingSpinner extends Component {
   render() {
     if (this.props.loading) {
       return (
-        <div className="lds-ring">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+        <div className="lds-container">
+          <div className="lds-ring">
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
         </div>
       );
-    } else return <span></span>;
+    } else return <spans />;
   }
 }
 
