@@ -5,7 +5,7 @@
 
 Jump to [ShowRatings](https://showratings.info/) and start searching for the TV show you want to check!
 
-
+![](https://media.giphy.com/media/elVerWROUGWfb34wB6/giphy.gif)
 
 ## Notes
 
