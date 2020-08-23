@@ -200,6 +200,7 @@ const IconsBar = ({ className, style, rotate, zoom, countVisible, onChangeCountV
                     onChange={onChangeZoom}
                     min={constants.minZoom}
                     max={constants.maxZoom}
+                    id="sliderZoom"
                 />
             </div>
             <IconButton onClick={rotate ? onZoomOut : onZoomIn}>

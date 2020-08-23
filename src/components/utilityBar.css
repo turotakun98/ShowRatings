@@ -1,52 +1,52 @@
 .panelContainer {
-  overflow: auto hidden;
+    overflow: auto hidden;
 }
 
 .transformContainer {
-  transform-origin: top left;
+    transform-origin: top left;
 }
 
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 40px;
-  height: 35px;
-  border: 0;
-  background: url("../iconZoom.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 40px;
+    height: 35px;
+    border: 0;
+    background: url("../iconZoom.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-  width: 30px;
-  height: 10px;
-  border: 0;
-  /* background: url("../iconZoom.png"); */
-  background-color: blue;
-  background-repeat: no-repeat;
-  background-size: contain;
-  cursor: pointer;
-  border-radius: 0;
+    width: 30px;
+    height: 10px;
+    border: 0;
+    /* background: url("../iconZoom.png"); */
+    background-color: blue;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    border-radius: 0;
 }
 
 .slider {
-  -webkit-appearance: none;
-  height: 10px;
-  border-radius: 5px;
-  background: red;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
+    -webkit-appearance: none;
+    height: 10px;
+    border-radius: 5px;
+    background: red;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
 }
 
 input[type="range"][orient="vertical"] {
-  writing-mode: bt-lr; /* IE */
-  -webkit-appearance: slider-vertical; /* WebKit */
-  width: 8px;
-  height: 175px;
-  padding: 0 5px;
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 8px;
+    height: 175px;
+    padding: 0 5px;
 }
 /* 
 .rotateButton {
@@ -57,6 +57,10 @@ input[type="range"][orient="vertical"] {
   height: 30px;
 } */
 
-span[class^="PrivateValueLabel-label"] {
-  transform: rotate(-45deg) !important;
+/* span[class^="PrivateValueLabel-label"] {
+    transform: rotate(-45deg) !important;
+} */
+
+span[id^="sliderZoom"] span span span {
+    transform: rotate(-45deg) !important;
 }
