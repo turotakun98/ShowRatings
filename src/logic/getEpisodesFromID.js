@@ -1,7 +1,7 @@
 import EpisodeInfo from "../classes/episodeInfo";
 
 export default async function getEpisodesFromID(idSeries) {
-    const url = "https://showratings.info//episodesList/" + idSeries;
+    const url = "https://showratings.info/episodesList/" + idSeries;
     const response = await fetch(url);
     const data = await response.json();
     var listEpisodes = {};
