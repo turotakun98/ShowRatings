@@ -57,8 +57,7 @@ class SearchBar extends Component {
         this.setState({ text: event.target.value }, async () => {
             if (this.state.text) {
                 var listSeries = await getSeriesListByTitle(this.state.text.toLowerCase());
-
-                this.setState({ suggestions: listSeries });
+                if (listSeries) this.setState({ suggestions: listSeries });
             } else {
                 this.setState({ suggestions: [] });
             }

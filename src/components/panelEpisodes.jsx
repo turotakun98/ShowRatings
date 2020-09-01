@@ -25,6 +25,7 @@ class PanelEpisodes extends Component {
 
     renderEpisodesSeasons() {
         const { episodesList } = this.props;
+        console.log("episodesList", episodesList);
         if (!episodesList || episodesList.length === 0) {
             return <h1> </h1>;
         } else {

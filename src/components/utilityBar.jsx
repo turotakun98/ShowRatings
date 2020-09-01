@@ -34,7 +34,7 @@ class UtilityBar extends Component {
         baseWidth: 0,
         pageWidth: 0,
         divWidth: 0,
-        countVisible: true,
+        countVisible: false,
         centerPanelX: 0,
     };
 
@@ -142,7 +142,6 @@ class UtilityBar extends Component {
     getHeightWidth() {
         var heightL = document.getElementById(this.props.children.props.id).getBoundingClientRect().height;
         var widthL = document.getElementById(this.props.children.props.id).getBoundingClientRect().width;
-
         var panelPosX = document.getElementById("centerPanel").getBoundingClientRect().x;
         this.setState({
             baseWidth: widthL,
