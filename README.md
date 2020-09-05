@@ -9,4 +9,4 @@ Jump to [ShowRatings](https://showratings.info/) and start searching for the TV 
 
 ## Notes
 
-All the TV show info generated from ShowRatings are taken from [IMDB](https://www.imdb.com/).
+All the TV show info generated from ShowRatings are taken from [OMDb](http://www.omdbapi.com/).
