@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./searchBar.css";
 import getSeriesListByTitle from "../logic/getSeriesListByTitle";
+import getSeriesIdByTitle from "../logic/getSeriesIdByTitle";
 import iconImageNotFound from "../iconImageNotFound.png";
 import { IconButton } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -64,9 +65,9 @@ class SearchBar extends Component {
         });
     }
 
-    handleClick(index) {
+    async handleClick(index) {
         const { suggestions } = this.state;
-        var selectedSuggestion = suggestions[index];
+        var selectedSuggestion = await getSeriesIdByTitle(suggestions[index].title);
         this.setState({
             text: selectedSuggestion.title,
         });
