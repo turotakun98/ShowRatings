@@ -67,7 +67,7 @@ class SearchBar extends Component {
 
     async handleClick(index) {
         const { suggestions } = this.state;
-        var selectedSuggestion = await getSeriesIdByTitle(suggestions[index].title);
+        var selectedSuggestion = await getSeriesIdByTitle(suggestions[index].title, suggestions[index].years);
         this.setState({
             text: selectedSuggestion.title,
         });
