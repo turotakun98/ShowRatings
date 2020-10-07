@@ -3,14 +3,11 @@ import config from "../config/config";
 
 export default async function getEpisodesFromID(idSeries, totalSeasons) {
     const url = "https://www.omdbapi.com/?apikey=" + config.omdbApiKey + "&i=" + idSeries + "&Season=";
-    console.log("totalSeasons", totalSeasons);
     var listEpisodes = {};
     for (let seas = 1; seas <= totalSeasons; seas++) {
         const urlSeason = url + seas;
         const response = await fetch(urlSeason);
-        console.log("urlSeason", urlSeason);
         const data = await response.json();
-        console.log("data", data);
         if (data.Response === "True") {
             for (let ep = 0; ep < data.Episodes.length; ep++) {
                 var episode = new EpisodeInfo(

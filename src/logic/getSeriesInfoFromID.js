@@ -6,6 +6,5 @@ export default async function getSeriesInfoFromID(idSeries) {
     const response = await fetch(url);
     const data = await response.json();
     var series = new SeriesInfo(data.Title, data.Genre, data.Plot, data.imdbRating, data.imdbVotes, data.totalSeasons);
-    console.log("series", series);
     return series;
 }

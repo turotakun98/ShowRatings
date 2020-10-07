@@ -51,7 +51,6 @@ class App extends React.Component {
         if (series) {
             var imageLink = series.imageLink;
             image = imageLink;
-            console.log("image", image);
         }
 
         return image;
