@@ -33,8 +33,16 @@ class App extends React.Component {
         var seriesInfo = await getSeriesInfoFromID(series.idImdb);
         var epsPromise = getEpisodesFromID(series.idImdb, seriesInfo.totalSeasons);
 
-        var eps = await epsPromise;
+        var epsTmp = await epsPromise;
         //var seriesInfo = await seriesInfoPromise;
+        var eps = {};
+
+        Object.keys(epsTmp).map((season) => {
+            for (let i = 0; i < epsTmp[season].length; i += 20) {
+                var seasonNumber = i / 20 >= 1 ? `${season}.${i / 20}` : season;
+                eps[seasonNumber] = epsTmp[season].slice(i, i + 20);
+            }
+        });
 
         this.setState({
             episodesList: eps,
@@ -84,12 +92,18 @@ class App extends React.Component {
                 >
                     <div className="col-md-2">
                         {this.state.series && (
-                            <button className="btn btn-primary d-sm-none" style={{ margin: 20 }} onClick={this.clickCollapse}>
+                            <button
+                                className="btn btn-primary d-sm-none"
+                                style={{ margin: 20 }}
+                                onClick={this.clickCollapse}
+                            >
                                 {this.state.collapse ? "Expand" : "Collapse"}
                             </button>
                         )}
                         <Collapse in={!this.state.collapse}>
-                            {this.state.series && <SeriesInfoCard series={this.state.series} seriesInfo={this.state.seriesInfo} />}
+                            {this.state.series && (
+                                <SeriesInfoCard series={this.state.series} seriesInfo={this.state.seriesInfo} />
+                            )}
                         </Collapse>
                     </div>
 

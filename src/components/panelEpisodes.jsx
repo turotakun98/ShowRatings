@@ -82,7 +82,6 @@ class PanelEpisodes extends Component {
 
     renderSeason() {
         const { episodesList } = this.props;
-
         const retVal = Object.keys(episodesList).map((season) => (
             <tr key={season}>
                 <th key={"S" + season} className={this.props.rotate ? "cellRotated" : ""}>
@@ -90,7 +89,7 @@ class PanelEpisodes extends Component {
                         <h6 className="headerLabel">S{season}</h6>
                     </div>
                 </th>
-                {this.renderEpisodes(this.props.episodesList[season])}
+                {this.renderEpisodes(episodesList[season])}
             </tr>
         ));
 
@@ -101,7 +100,12 @@ class PanelEpisodes extends Component {
         const episodesSorted = episodes.sort((a, b) => Math.floor(a.number) - Math.floor(b.number));
 
         const retVal = episodesSorted.map((item) => (
-            <CellEpisode key={"S" + item.season + "E" + item.number} episodeInfo={item} rotated={this.props.rotate} countVisible={this.props.countVisible} />
+            <CellEpisode
+                key={"S" + item.season + "E" + item.number}
+                episodeInfo={item}
+                rotated={this.props.rotate}
+                countVisible={this.props.countVisible}
+            />
         ));
 
         return retVal;
