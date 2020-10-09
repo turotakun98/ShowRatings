@@ -15,7 +15,8 @@ class App extends React.Component {
         super(props);
         this.handleSearch = this.handleSearch.bind(this);
         this.clickCollapse = this.clickCollapse.bind(this);
-        this.handleResize = this.handleResize.bind(this);
+        this.handleHideScroll = this.handleHideScroll.bind(this);
+        this.handleChangeMaxScrollSize = this.handleChangeMaxScrollSize.bind(this);
     }
 
     state = {
@@ -24,7 +25,8 @@ class App extends React.Component {
         episodesList: [],
         loading: false,
         collapse: false,
-        pnlH: null,
+        hideScroll: false,
+        maxScrollSize: 20,
     };
 
     async handleSearch(series) {
@@ -35,17 +37,10 @@ class App extends React.Component {
 
         var epsTmp = await epsPromise;
         //var seriesInfo = await seriesInfoPromise;
-        var eps = {};
-
-        Object.keys(epsTmp).map((season) => {
-            for (let i = 0; i < epsTmp[season].length; i += 20) {
-                var seasonNumber = i / 20 >= 1 ? `${season}.${i / 20}` : season;
-                eps[seasonNumber] = epsTmp[season].slice(i, i + 20);
-            }
-        });
-
+        const maxScroll = this.state.maxScrollSize;
         this.setState({
-            episodesList: eps,
+            episodesList: epsTmp,
+            episodesListShort: this.resizeTableScroll(epsTmp, maxScroll),
             series: series,
             seriesInfo: seriesInfo,
             loading: false,
@@ -68,8 +63,30 @@ class App extends React.Component {
         this.setState({ collapse: !this.state.collapse });
     }
 
-    handleResize(height) {
-        this.setState({ pnlH: height });
+    handleHideScroll(event) {
+        this.setState({ hideScroll: event.target.checked });
+    }
+
+    handleChangeMaxScrollSize(event) {
+        this.setState({ maxScrollSize: event.target.value }, () => {
+            this.setState({
+                episodesListShort: this.resizeTableScroll(this.state.episodesList, this.state.maxScrollSize),
+            });
+        });
+    }
+
+    resizeTableScroll(episodes, maxScroll) {
+        const epsTmp = episodes;
+        var eps = {};
+
+        Object.keys(epsTmp).map((season) => {
+            for (let i = 0; i < epsTmp[season].length; i += maxScroll) {
+                var seasonNumber = i / maxScroll >= 1 ? `${season}.${i / maxScroll}` : season;
+                eps[seasonNumber] = epsTmp[season].slice(i, i + maxScroll);
+            }
+        });
+
+        return eps;
     }
 
     render() {
@@ -107,8 +124,17 @@ class App extends React.Component {
                         </Collapse>
                     </div>
 
-                    <UtilityBar onResize={this.handleResize}>
-                        <PanelEpisodes id="pnlEpisodes" episodesList={this.state.episodesList} />
+                    <UtilityBar
+                        hideScroll={this.state.hideScroll}
+                        onHideScroll={this.handleHideScroll}
+                        onChangeMaxScrollSize={this.handleChangeMaxScrollSize}
+                    >
+                        <PanelEpisodes
+                            id="pnlEpisodes"
+                            episodesList={
+                                this.state.hideScroll ? this.state.episodesListShort : this.state.episodesList
+                            }
+                        />
                     </UtilityBar>
                 </div>
             </div>

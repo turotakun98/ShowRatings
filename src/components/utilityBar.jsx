@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./utilityBar.css";
 import Slider from "@material-ui/core/Slider";
 import { withStyles } from "@material-ui/core/styles";
-import { IconButton, Checkbox, FormControlLabel } from "@material-ui/core";
+import { IconButton, Checkbox, FormControlLabel, TextField } from "@material-ui/core";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
 import ZoomOutIcon from "@material-ui/icons/ZoomOut";
@@ -36,7 +36,15 @@ class UtilityBar extends Component {
         divWidth: 0,
         countVisible: false,
         centerPanelX: 0,
+        hideScroll: this.props.hideScroll,
     };
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        if (nextProps.hideScroll !== this.state.hideScroll) {
+            this.setState({ hideScroll: nextProps.hideScroll });
+        }
+    }
 
     render() {
         return (
@@ -44,7 +52,9 @@ class UtilityBar extends Component {
                 id="tableContainer"
                 className={
                     //"col-md-10 panelContainer" + (this.state.visible ? "" : " d-none")
-                    "col-md-10" + (this.state.visible ? "" : " d-none") + (this.state.baseWidth > this.state.divWidth ? " panelContainer" : "")
+                    "col-md-10" +
+                    (this.state.visible ? "" : " d-none") +
+                    (this.state.baseWidth > this.state.divWidth ? " panelContainer" : "")
                 }
             >
                 <IconsBar
@@ -58,6 +68,9 @@ class UtilityBar extends Component {
                     onZoomIn={this.zoomIn}
                     onZoomOut={this.zoomOut}
                     onRotateTable={this.rotateTable}
+                    hideScroll={this.state.hideScroll}
+                    onHideScroll={this.props.onHideScroll}
+                    onChangeMaxScrollSize={this.props.onChangeMaxScrollSize}
                 />
                 <IconsBar
                     className="d-block d-sm-block d-md-block d-lg-none d-xl-none"
@@ -70,6 +83,9 @@ class UtilityBar extends Component {
                     onZoomIn={this.zoomIn}
                     onZoomOut={this.zoomOut}
                     onRotateTable={this.rotateTable}
+                    hideScroll={this.state.hideScroll}
+                    onHideScroll={this.props.onHideScroll}
+                    onChangeMaxScrollSize={this.props.onChangeMaxScrollSize}
                 />
                 <div
                     id="centerPanel"
@@ -91,7 +107,9 @@ class UtilityBar extends Component {
                             className="transformContainer"
                             style={{
                                 width: `calc(100% / ${this.state.zoom / 100})`,
-                                transform: `scale(${this.state.zoom / 100}) ` + (this.state.rotate ? " scaleX(-1) rotate(90deg)" : ""),
+                                transform:
+                                    `scale(${this.state.zoom / 100}) ` +
+                                    (this.state.rotate ? " scaleX(-1) rotate(90deg)" : ""),
                             }}
                         >
                             {React.cloneElement(this.props.children, {
@@ -174,7 +192,21 @@ class UtilityBar extends Component {
     }
 }
 
-const IconsBar = ({ className, style, rotate, zoom, countVisible, onChangeCountVisibility, onChangeZoom, onZoomIn, onZoomOut, onRotateTable }) => {
+const IconsBar = ({
+    className,
+    style,
+    rotate,
+    zoom,
+    countVisible,
+    onChangeCountVisibility,
+    onChangeZoom,
+    onZoomIn,
+    onZoomOut,
+    onRotateTable,
+    hideScroll,
+    onHideScroll,
+    onChangeMaxScrollSize,
+}) => {
     return (
         <div className={className} style={style}>
             <IconButton type="button" onClick={onRotateTable} style={{ color: "black" }}>
@@ -205,6 +237,16 @@ const IconsBar = ({ className, style, rotate, zoom, countVisible, onChangeCountV
             <IconButton onClick={rotate ? onZoomOut : onZoomIn}>
                 {rotate ? <ZoomOutIcon style={{ color: "black" }} /> : <ZoomInIcon style={{ color: "black" }} />}
             </IconButton>
+            {rotate && <br />}
+            <Checkbox onChange={onHideScroll} />
+            {rotate && <br />}
+            {hideScroll && (
+                <TextField
+                    type="number"
+                    InputProps={{ inputProps: { min: 10, max: 30 } }}
+                    onChange={onChangeMaxScrollSize}
+                />
+            )}
         </div>
     );
 };
