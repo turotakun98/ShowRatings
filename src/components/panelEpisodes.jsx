@@ -82,16 +82,18 @@ class PanelEpisodes extends Component {
 
     renderSeason() {
         const { episodesList } = this.props;
-        const retVal = Object.keys(episodesList).map((season) => (
-            <tr key={season}>
-                <th key={"S" + season} className={this.props.rotate ? "cellRotated" : ""}>
-                    <div className="cellSquare">
-                        <h6 className="headerLabel">S{season}</h6>
-                    </div>
-                </th>
-                {this.renderEpisodes(episodesList[season])}
-            </tr>
-        ));
+        const retVal = Object.keys(episodesList)
+            .sort()
+            .map((season) => (
+                <tr key={season}>
+                    <th key={"S" + season} className={this.props.rotate ? "cellRotated" : ""}>
+                        <div className="cellSquare">
+                            <h6 className="headerLabel">S{season}</h6>
+                        </div>
+                    </th>
+                    {this.renderEpisodes(episodesList[season])}
+                </tr>
+            ));
 
         return retVal;
     }

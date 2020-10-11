@@ -68,7 +68,7 @@ class App extends React.Component {
     }
 
     handleChangeMaxScrollSize(event) {
-        this.setState({ maxScrollSize: event.target.value }, () => {
+        this.setState({ maxScrollSize: parseInt(event.target.value) }, () => {
             this.setState({
                 episodesListShort: this.resizeTableScroll(this.state.episodesList, this.state.maxScrollSize),
             });
