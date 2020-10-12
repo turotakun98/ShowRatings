@@ -207,6 +207,18 @@ const IconsBar = ({
     onHideScroll,
     onChangeMaxScrollSize,
 }) => {
+    const [error, setError] = React.useState(false);
+
+    const checkValue = (event) => {
+        const val = parseInt(event.target.value);
+        if (val >= 10 && val <= 30) {
+            onChangeMaxScrollSize(event);
+            setError(false);
+        } else {
+            setError(true);
+        }
+    };
+
     return (
         <div className={className} style={style}>
             <IconButton type="button" onClick={onRotateTable} style={{ color: "black" }}>
@@ -238,13 +250,19 @@ const IconsBar = ({
                 {rotate ? <ZoomOutIcon style={{ color: "black" }} /> : <ZoomInIcon style={{ color: "black" }} />}
             </IconButton>
             {rotate && <br />}
+            <label>Max seasons length</label>
+            {rotate && <br />}
             <Checkbox onChange={onHideScroll} />
             {rotate && <br />}
             {hideScroll && (
                 <TextField
                     type="number"
+                    style={{ width: 50 }}
                     InputProps={{ inputProps: { min: 10, max: 30 } }}
-                    onChange={onChangeMaxScrollSize}
+                    error={error}
+                    onChange={checkValue}
+                    defaultValue={20}
+                    helperText={error && "10 - 30"}
                 />
             )}
         </div>
