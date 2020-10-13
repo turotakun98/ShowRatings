@@ -36,11 +36,15 @@ class App extends React.Component {
         var epsPromise = getEpisodesFromID(series.idImdb, seriesInfo.totalSeasons);
 
         var epsTmp = await epsPromise;
-        //var seriesInfo = await seriesInfoPromise;
+
+        var epsObject = Object.keys(epsTmp).map((seasonNr) => {
+            return { number: seasonNr, episodes: epsTmp[seasonNr] };
+        });
+
         const maxScroll = this.state.maxScrollSize;
         this.setState({
-            episodesList: epsTmp,
-            episodesListShort: this.resizeTableScroll(epsTmp, maxScroll),
+            episodesList: epsObject,
+            episodesListShort: this.resizeTableScroll(epsObject, maxScroll),
             series: series,
             seriesInfo: seriesInfo,
             loading: false,
@@ -77,16 +81,16 @@ class App extends React.Component {
 
     resizeTableScroll(episodes, maxScroll) {
         const epsTmp = episodes;
-        var eps = {};
+        var eps = [];
 
-        Object.keys(epsTmp).map((season) => {
-            for (let i = 0; i < epsTmp[season].length; i += maxScroll) {
-                var seasonNumber = i / maxScroll >= 1 ? `${season}.${i / maxScroll}` : season;
-                eps[seasonNumber] = epsTmp[season].slice(i, i + maxScroll);
+        epsTmp.map((season) => {
+            for (let i = 0; i < season.episodes.length; i += maxScroll) {
+                var seasonNumber = i / maxScroll >= 1 ? `${season.number}.${i / maxScroll}` : season.number;
+                eps.push({ number: seasonNumber, episodes: season.episodes.slice(i, i + maxScroll) });
             }
         });
 
-        return eps;
+        return eps.sort((a, b) => a.season - b.season);
     }
 
     render() {

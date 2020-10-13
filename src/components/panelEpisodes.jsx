@@ -74,7 +74,7 @@ class PanelEpisodes extends Component {
         let min = 1;
 
         for (let s in episodesList) {
-            let episodeNr = episodesList[s].length;
+            let episodeNr = episodesList[s].episodes.length;
             if (episodeNr > max) max = episodeNr;
         }
         return [min, max];
@@ -82,24 +82,22 @@ class PanelEpisodes extends Component {
 
     renderSeason() {
         const { episodesList } = this.props;
-        const retVal = Object.keys(episodesList)
-            .sort()
-            .map((season) => (
-                <tr key={season}>
-                    <th key={"S" + season} className={this.props.rotate ? "cellRotated" : ""}>
-                        <div className="cellSquare">
-                            <h6 className="headerLabel">S{season}</h6>
-                        </div>
-                    </th>
-                    {this.renderEpisodes(episodesList[season])}
-                </tr>
-            ));
+        const retVal = episodesList.map((season) => (
+            <tr key={season.number}>
+                <th key={"S" + season.number} className={this.props.rotate ? "cellRotated" : ""}>
+                    <div className="cellSquare">
+                        <h6 className="headerLabel">S{season.number}</h6>
+                    </div>
+                </th>
+                {this.renderEpisodes(season.episodes)}
+            </tr>
+        ));
 
         return retVal;
     }
 
     renderEpisodes(episodes) {
-        const episodesSorted = episodes.sort((a, b) => Math.floor(a.number) - Math.floor(b.number));
+        const episodesSorted = episodes.sort();
 
         const retVal = episodesSorted.map((item) => (
             <CellEpisode
