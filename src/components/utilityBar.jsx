@@ -40,7 +40,6 @@ class UtilityBar extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         if (nextProps.hideScroll !== this.state.hideScroll) {
             this.setState({ hideScroll: nextProps.hideScroll });
         }
